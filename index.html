@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ficha MAJI RPG</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Ficha de Majikai</h1>
+
+        <div class="section">
+            <h2>1. Identidade</h2>
+            <div style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label>Nome:</label>
+                    <input type="text" id="nomeChar" placeholder="Ex: Ivan">
+                </div>
+                <div style="flex: 1;">
+                    <label>Sobrenome:</label>
+                    <input type="text" id="sobrenomeChar" placeholder="Ex: Khronoslav">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Guilda & Atributos</h2>
+
+            <div style="display: flex; gap: 20px; align-items: flex-end; margin-bottom: 15px;">
+                <div style="flex: 1;">
+                    <label>Selecione a Guilda:</label>
+                    <select id="selectGuilda" onchange="atualizarFicha()">
+                        <option value="">-- Selecione --</option>
+                        <option value="ardor">Guilda Ardor</option>
+                        <option value="blugarony">Guilda Blugarony</option>
+                        <option value="borealis">Guilda Borealis</option>
+                        <option value="tigre">Guilda Tigre</option>
+                        <option value="eco">Guilda Eco</option>
+                        <option value="justica">Justiça Cinza</option>
+                        <option value="strike">Guilda Strike</option>
+                        <option value="tayport">Guilda Tayport</option>
+                        <option value="yastrev">Guilda Yastrev</option>
+                        <option value="exterminadores">Exterminadores</option>
+                    </select>
+                </div>
+                <div style="flex: 1; text-align: right;">
+                    <span class="info-auto" id="textoBonusAtributo">Bônus: Nenhum</span>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box"><label>Agilidade</label>
+                    <div class="stat-val" id="valAgilidade">1</div>
+                </div>
+                <div class="stat-box"><label>Força</label>
+                    <div class="stat-val" id="valForca">1</div>
+                </div>
+                <div class="stat-box"><label>Vigor</label>
+                    <div class="stat-val" id="valVigor">1</div>
+                </div>
+                <div class="stat-box"><label>Astúcia</label>
+                    <div class="stat-val" id="valAstucia">1</div>
+                </div>
+                <div class="stat-box"><label>Carisma</label>
+                    <div class="stat-val" id="valCarisma">1</div>
+                </div>
+                <div class="stat-box"><label>Inteligência</label>
+                    <div class="stat-val" id="valInteligencia">1</div>
+                </div>
+            </div>
+
+            <div
+                style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed #ccc; padding-top: 10px;">
+                <div>
+                    <label>Proficiência em VIGOR:</label>
+                    <select id="profVigor" onchange="calcularVida()" style="width: 150px;">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="life-box">
+                    PV: <span id="displayVida">10 | 20 | 30</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Habilidades da Guilda</h2>
+
+            <div class="hab-container">
+                <div class="hab-card starter">
+                    <input type="text" id="habNome1" class="hab-title" placeholder="Habilidade Inicial" readonly>
+                    <div class="meta-row">
+                        <span style="font-size:0.8em; font-weight:bold;">⭐</span>
+                    </div>
+                    <div id="habDesc1" class="hab-desc"></div>
+                </div>
+
+                <div class="hab-card" id="cardHab2">
+                    <input type="text" id="habNome2" class="hab-title" readonly>
+                    <div class="meta-row">
+                        <div class="check-container">
+                            <input type="checkbox" id="checkHab2" onchange="toggleStatus(2)">
+                            <span id="statusHab2" class="status-text">Não Aprendida</span>
+                        </div>
+                        <span class="req-tag">Req: <span class="req-val" id="habReq2">--</span></span>
+                    </div>
+                    <div id="habDesc2" class="hab-desc"></div>
+                </div>
+
+                <div class="hab-card" id="cardHab3">
+                    <input type="text" id="habNome3" class="hab-title" readonly>
+                    <div class="meta-row">
+                        <div class="check-container">
+                            <input type="checkbox" id="checkHab3" onchange="toggleStatus(3)">
+                            <span id="statusHab3" class="status-text">Não Aprendida</span>
+                        </div>
+                        <span class="req-tag">Req: <span class="req-val" id="habReq3">--</span></span>
+                    </div>
+                    <div id="habDesc3" class="hab-desc"></div>
+                </div>
+
+                <div class="hab-card" id="cardHab4">
+                    <input type="text" id="habNome4" class="hab-title" readonly>
+                    <div class="meta-row">
+                        <div class="check-container">
+                            <input type="checkbox" id="checkHab4" onchange="toggleStatus(4)">
+                            <span id="statusHab4" class="status-text">Não Aprendida</span>
+                        </div>
+                        <span class="req-tag">Req: <span class="req-val" id="habReq4">--</span></span>
+                    </div>
+                    <div id="habDesc4" class="hab-desc"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. Majis e Inventário</h2>
+            <label>Maji Iniciais:</label>
+            <textarea id="majiInicial" rows="3" readonly></textarea>
+
+            <div class="equip-grid" style="margin-top: 15px;">
+                <div>
+                    <label>Traje / Armadura:</label>
+                    <input type="text" id="trajeGrupo" readonly>
+                </div>
+                <div>
+                    <label>Riqueza:</label>
+                    <input type="text" id="riquezaGrupo" readonly style="text-align: center; font-weight: bold;">
+                </div>
+            </div>
+            <label>Armas e Itens:</label>
+            <textarea id="armasGrupo" rows="2" readonly></textarea>
+        </div>
+
+        <button onclick="imprimirPDF()" class="no-print">Baixar Ficha</button>
+    </div>
+
+    <script src="dados.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

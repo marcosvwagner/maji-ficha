@@ -1,0 +1,111 @@
+        body { font-family: 'Courier New', Courier, monospace; background-color: #483D8B; padding: 20px; }
+        
+        .container { 
+            max-width: 850px; 
+            margin: 0 auto; 
+            background: rgb(255, 255, 255); 
+            padding: 30px; 
+            border: 1px solid #ccc; 
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1); 
+        }
+
+        h1, h2 { text-align: center; color: #333; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .section { margin-bottom: 20px; padding: 15px; border: 1px solid #eee; background: #fafafa; }
+        
+        label { display: block; margin-top: 5px; font-weight: bold; font-size: 0.9em; color: #444; }
+        
+        input[type="text"], select, textarea { 
+            width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; 
+            border: 1px solid #aaa; background: #fff; font-family: inherit; font-size: 13px;
+        }
+        textarea { resize: none; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+        .stat-box { background: #e0e0e0; padding: 10px; border-radius: 5px; border: 1px solid #999; }
+        .stat-val { font-size: 24px; font-weight: bold; color: #d00; }
+        
+        .life-box { margin-top: 15px; padding: 10px; border: 2px solid #d00; text-align: center; font-weight: bold; font-size: 1.1em; border-radius: 8px; }
+        
+        .info-auto { color: #666; font-style: italic; font-size: 0.9em; font-weight: bold; color: #483D8B; }
+
+        .hab-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; align-items: start; }
+        
+        .hab-card { 
+            border: 1px solid #999; 
+            padding: 10px; 
+            background: #fff; 
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: background 0.3s;
+            height: auto; 
+        }
+        .hab-card.starter { background-color: #fff; border-color: #483D8B; }
+        .hab-card.aprendida { background-color: #fff; border-color: #2e8b57; }
+
+        .hab-title { 
+            font-weight: bold; color: #000; font-size: 1em; 
+            border: none; background: transparent; padding: 0; margin: 0;
+            border-bottom: 2px solid #ddd;
+            width: 100%;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+            margin-bottom: 0;
+        }
+
+        .check-container { display: flex; align-items: center; gap: 5px; color: #333; }
+        input[type="checkbox"] { width: 16px; height: 16px; margin: 0; cursor: pointer; }
+        
+        .status-text { color: #777; font-style: italic; font-size: 0.9em; }
+        .status-text.ativo { color: #000000; font-weight: bold; font-style: normal; text-transform: uppercase; }
+
+        .req-tag {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #444;
+            border: 1px solid #ccc;
+        }
+        .req-val { color: #d00; font-weight: bold; }
+
+        .hab-desc {
+            font-size: 0.9em;
+            color: #333;
+            line-height: 1.4;
+            white-space: pre-wrap; 
+            min-height: 40px; 
+        }
+
+        .equip-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+
+        button { 
+            background-color: #333; color: white; padding: 15px 30px; 
+            border: none; cursor: pointer; font-size: 16px; width: 100%; 
+            margin-top: 20px; border-radius: 5px; 
+        }
+        button:hover { background-color: #555; }
+
+        /* --- IMPRESSÃO (PDF) --- */
+        @media print {
+            body { background-color: white; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; margin: 0; }
+            .no-print { display: none !important; }
+            
+            .section { page-break-inside: avoid; border: 1px solid #000; margin-bottom: 10px; padding: 10px; }
+            input, textarea, select { border: none; border-bottom: 1px solid #ccc; background: transparent; padding: 2px; }
+            textarea { border: 1px solid #eee; }
+            
+            .hab-container { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .hab-card { border: 1px solid #000; page-break-inside: avoid; }
+            .hab-card.starter { background-color: #fff !important; }
+            .hab-card.aprendida { background-color: #fff !important; border: 2px solid #000; }
+            .req-tag { border: 1px solid #666; background-color: #ddd !important; }
+            .stat-box { background-color: #eee !important; border: 1px solid #000; padding: 5px; }
+            .life-box { background-color: #fff !important; border: 2px solid #000; }
+        }
