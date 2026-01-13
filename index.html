@@ -164,6 +164,11 @@
         </div>
 
         <button onclick="imprimirPDF()" class="no-print">Baixar Ficha (PDF)</button>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button onclick="baixarFicha()">Salvar Arquivo</button>
+            <button onclick="document.getElementById('inputCarregar').click()">Carregar Arquivo</button>
+            <input type="file" id="inputCarregar" style="display: none;" onchange="subirFicha(this)">
+        </div>
     </div>
 
     <script src="dados.js"></script>
