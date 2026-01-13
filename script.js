@@ -1,4 +1,4 @@
-// Salve como: script.js
+
 
 function toggleStatus(id) {
     const checkbox = document.getElementById("checkHab" + id);
@@ -16,59 +16,143 @@ function toggleStatus(id) {
     }
 }
 
+/**
+ * Cria os selects dinamicamente baseado nos Slots da guilda
+ */
+function gerarSlotsEquipamento(containerId, slots, banco) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = ""; // Limpa
+
+    if (!slots || slots.length === 0) {
+        container.innerHTML = "<p style='color:#777; font-style:italic;'>Nenhum equipamento.</p>";
+        return;
+    }
+
+    slots.forEach((slot) => {
+        // Wrapper da área
+        const wrapper = document.createElement("div");
+        wrapper.className = "equip-area";
+
+        // Label
+        const label = document.createElement("label");
+        label.innerText = slot.label + ":";
+        wrapper.appendChild(label);
+
+        // Select
+        const select = document.createElement("select");
+        select.className = "equip-select";
+
+        const defaultOpt = document.createElement("option");
+        defaultOpt.value = "";
+        defaultOpt.text = "- Selecione -";
+        select.add(defaultOpt);
+
+        // Popula filtrando
+        for (const [key, item] of Object.entries(banco)) {
+            let permitido = false;
+            if (slot.item) {
+                permitido = slot.item === key;
+            }
+            else {
+                permitido = slot.modo === "E"
+                    ? slot.filtros.every(filtro => item.tags.includes(filtro))
+                    : slot.filtros.some(filtro => item.tags.includes(filtro));
+            }
+
+            if (permitido) {
+                let opt = document.createElement("option");
+                opt.value = key;
+                opt.text = item.nome;
+                select.add(opt);
+            }
+        }
+        wrapper.appendChild(select);
+
+        // Div de Detalhes
+        const detailsDiv = document.createElement("div");
+        detailsDiv.className = "item-stats";
+        wrapper.appendChild(detailsDiv);
+
+        // Evento de Change
+        select.onchange = function () {
+            const key = this.value;
+            if (key && banco[key]) {
+                const i = banco[key];
+                let info = "";
+
+                if (banco === bancoItens.armas) {
+                    if (i.tags.includes("escudo")) {
+                        info = `<strong>Def:</strong> ${i.def} | <strong>Dano:</strong> ${i.dano}`;
+                    } else {
+                        info = `<strong>Dano:</strong> ${i.dano} | <strong>Alc:</strong> ${i.alcance || "0"} | <strong>Tipo:</strong> ${i.tipo || "-"}`;
+                    }
+                } else {
+                    info = `<strong>Def:</strong> ${i.defesa} | <strong>Pen:</strong> ${i.pen}`;
+                }
+
+                let extras = i.esp ? i.esp : (i.especial ? i.especial : "");
+                detailsDiv.innerHTML = `${info}<br><em>${extras}</em>`;
+            } else {
+                detailsDiv.innerText = "";
+            }
+        };
+
+        container.appendChild(wrapper);
+    });
+}
+
 function atualizarFicha() {
     const guildaSelect = document.getElementById("selectGuilda");
     const guildaSelecionada = guildaSelect.value;
     const textoBonus = document.getElementById("textoBonusAtributo");
-    
-    // Reset checkboxes
-    for(let i=2; i<=4; i++){
+
+    // Reset Habilidades
+    for (let i = 2; i <= 4; i++) {
         document.getElementById("checkHab" + i).checked = false;
         toggleStatus(i);
     }
 
     let stats = { "Agilidade": 1, "Força": 1, "Vigor": 1, "Astúcia": 1, "Carisma": 1, "Inteligência": 1 };
 
-    // O objeto 'dadosGuildas' vem do outro arquivo (dados.js)
     if (dadosGuildas[guildaSelecionada]) {
         const g = dadosGuildas[guildaSelecionada];
-        if(stats[g.bonus] !== undefined) stats[g.bonus] += 1;
-        
+
+        if (stats[g.bonus] !== undefined) stats[g.bonus] += 1;
         textoBonus.innerText = `Bônus: +1 ${g.bonus}`;
         textoBonus.style.color = "#d00";
 
         document.getElementById("majiInicial").value = g.maji;
-        document.getElementById("armasGrupo").value = g.armas;
-        document.getElementById("trajeGrupo").value = g.traje;
         document.getElementById("riquezaGrupo").value = g.riqueza;
 
+        // === GERAÇÃO DINÂMICA DE SLOTS ===
+        gerarSlotsEquipamento("containerArmas", g.slotsArmas, bancoItens.armas);
+        gerarSlotsEquipamento("containerTrajes", g.slotsTraje, bancoItens.trajes);
+
+        // Preencher Habilidades
         document.getElementById("habNome1").value = g.hab1.nome;
         document.getElementById("habDesc1").innerText = g.hab1.desc;
 
-        document.getElementById("habNome2").value = g.hab2.nome;
-        document.getElementById("habDesc2").innerText = g.hab2.desc;
-        document.getElementById("habReq2").innerText = (g.hab2.req || "--");
+        for (let i = 2; i <= 4; i++) {
+            let hab = g["hab" + i];
+            document.getElementById("habNome" + i).value = hab ? hab.nome : "";
+            document.getElementById("habDesc" + i).innerText = hab ? hab.desc : "";
+            document.getElementById("habReq" + i).innerText = hab ? (hab.req || "--") : "--";
+        }
 
-        document.getElementById("habNome3").value = g.hab3.nome;
-        document.getElementById("habDesc3").innerText = g.hab3.desc;
-        document.getElementById("habReq3").innerText = (g.hab3.req || "--");
-
-        document.getElementById("habNome4").value = g.hab4.nome;
-        document.getElementById("habDesc4").innerText = g.hab4.desc;
-        document.getElementById("habReq4").innerText = (g.hab4.req || "--");
     } else {
         textoBonus.innerText = "Bônus: Nenhum";
         textoBonus.style.color = "#483D8B";
-        
+
         document.getElementById("majiInicial").value = "";
-        document.getElementById("armasGrupo").value = "";
-        document.getElementById("trajeGrupo").value = "";
         document.getElementById("riquezaGrupo").value = "";
-        
-        for(let i=1; i<=4; i++){
+
+        document.getElementById("containerArmas").innerHTML = "";
+        document.getElementById("containerTrajes").innerHTML = "";
+
+        for (let i = 1; i <= 4; i++) {
             document.getElementById("habNome" + i).value = "";
             document.getElementById("habDesc" + i).innerText = "";
-            if(i > 1) document.getElementById("habReq" + i).innerText = "--";
+            if (i > 1) document.getElementById("habReq" + i).innerText = "--";
         }
     }
 
@@ -78,15 +162,15 @@ function atualizarFicha() {
     document.getElementById("valAstucia").innerText = stats["Astúcia"];
     document.getElementById("valCarisma").innerText = stats["Carisma"];
     document.getElementById("valInteligencia").innerText = stats["Inteligência"];
-    
-    calcularVida(); 
+
+    calcularVida();
 }
 
 function calcularVida() {
     const prof = document.getElementById("profVigor").value;
     const display = document.getElementById("displayVida");
-    let vidaTexto = "10 | 20 | 30"; 
-    
+    let vidaTexto = "10 | 20 | 30";
+
     if (prof == "1") vidaTexto = "20 | 40 | 60";
     else if (prof == "2") vidaTexto = "30 | 60 | 90";
     else if (prof == "3") vidaTexto = "40 | 80 | 120";
