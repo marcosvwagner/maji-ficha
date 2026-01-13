@@ -1,11 +1,4 @@
-// ==================================================================================
-// ARQUIVO: script.js
-// Lógica de preenchimento, filtros, cálculo e PERSISTÊNCIA (LocalStorage + Arquivo)
-// ==================================================================================
-
 const STORAGE_KEY = "maji_ficha_v1";
-
-// --- FUNÇÕES DE INTERFACE ---
 
 function toggleStatus(id) {
     const checkbox = document.getElementById("checkHab" + id);
@@ -101,7 +94,7 @@ function atualizarDetalheDinâmico(selectElement, banco) {
                 info = `<strong>Dano:</strong> ${i.dano} | <strong>Alc:</strong> ${i.alcance || "0"} | <strong>Tipo:</strong> ${i.tipo || "-"}`;
             }
         } else {
-            info = `<strong>Def:</strong> ${i.defesa} | <strong>Pen:</strong> ${i.pen}`;
+            info = `<strong>Def:</strong> ${i.defesa}`;
         }
         let extras = i.esp ? i.esp : (i.especial ? i.especial : "");
         div.innerHTML = `${info}<br><em>${extras}</em>`;
@@ -236,7 +229,6 @@ function baixarFicha() {
         dados.equipamentos[sel.id] = sel.value;
     });
 
-    // Cria arquivo JSON para download
     const jsonStr = JSON.stringify(dados, null, 2);
     const blob = new Blob([jsonStr], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -277,7 +269,7 @@ function aplicarDadosNaTela(dados) {
     
     if (dados.guilda) {
         document.getElementById("selectGuilda").value = dados.guilda;
-        atualizarFicha(true); // carrega estrutura sem resetar
+        atualizarFicha(true); 
     }
 
     if (dados.profVigor) {
@@ -310,7 +302,7 @@ function carregarDados() {
     aplicarDadosNaTela(dados); 
 }
 
-// Inicialização
+
 document.addEventListener("DOMContentLoaded", () => {
     carregarDados();
     const inputs = document.querySelectorAll("input[type='text']");
