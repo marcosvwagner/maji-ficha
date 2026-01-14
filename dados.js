@@ -390,6 +390,44 @@ const dadosGuildas = {
         hab4: { nome: "Cronologia Quebrada", desc: "Uma vez por cena, você pode escolher ter sucesso automático em qualquer teste.", req: "Agilidade 4" }
     },
 
-    
+    "nebula": {
+        bonus: "Inteligência",
+        slotsArmas: [{ label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }],
+        riqueza: "2",
+        maji: "Maji Base de Escrita, Uma Maji de Escrita, Duas Maji",
+        hab1: { nome: "Escritas Sobre a Pele", desc: "Uma vez por cena, você pode colocar uma Maji de Escrita em sua pele. Seu corpo possui 7 espaços (braços, pernas, torso e cabeça). Maji de Escrita Pequena ocupa 1 espaço, enquanto Grande ocupa 2 espaços." },
+        hab2: { nome: "Escritas Permanentes", desc: "Você pode fazer tatuagens permanentes que não são removidas após o uso. Deve gastar Ponto de Essência toda vez que usar a Maji tatuada, pois ela não armazena essência. Quando a Maji se torna permanente, ela não pode passar de nível (apenas com Tinta Corruptiva).", req: "Escritas Sobre a Pele, Inteligência 3" },
+        hab3: { nome: "Fusão da Tormenta", desc: "Tendo 2 tatuagens permanentes, você pode juntar duas Maji permanentes em sua pele em uma só, contando o espaço somado das duas. Ao usar a Maji, ambos os efeitos são realizados.", req: "2 Tatuagens Permanentes" },
+        hab4: { nome: "Tinta Corruptiva", desc: "Ao utilizar uma Maji tatuada, você pode marcar a Penalidade da caixa em que está para aumentar a Maji em +3 níveis.", req: "Inteligência 4" }
+    },
+
+    "prizark": {
+        bonus: "Agilidade",
+        slotsTraje: [{ label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }],
+        slotsArmas: [
+            { label: "Arma de Corrente", filtros: ["corrente"] },
+            { label: "Arma de Corrente", filtros: ["corrente"] }
+        ],
+        riqueza: "3",
+        maji: "Maji Base de Fala, Quatro Maji",
+        hab1: { nome: "Empurrão Libertador", desc: "Ao usar a Manobra Crítica Imobilizar com armas de correntes, você pode gastar 1 Ação para mover o alvo na área até o alcance máximo da arma." },
+        hab2: { nome: "Aprisionador Implacável", desc: "Ao realizar a Manobra Crítica Imobilizar com arma de corrente, você pode gastar 1 Ação para causar Sangrando enquanto o alvo estiver Imobilizado.", req: "Força 3" },
+        hab3: { nome: "Corrente Fantasma", desc: "Se estiver usando duas armas de correntes e errar um ataque com uma delas, você pode realizar um ataque com a outra sem gastar ação.", req: "Agilidade 3" },
+        hab4: { nome: "Redoma de Correntes", desc: "Usando duas armas de correntes, você pode gastar 3 Ações para realizar um ataque circular que atinge todos no alcance da arma.", req: "Agilidade 3, Força 3" }
+    },
+
+
+    "sacrifice": {
+        bonus: "Agilidade",
+        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        slotsArmas: [{ label: "Faca, Haste ou Espada", filtros: ["faca", "haste", "espada"] }],
+        riqueza: "2",
+        maji: "Maji Base de Fala, Três Maji",
+        hab1: { nome: "Sangue Essencial", desc: "Ao usar uma Maji Elemental, você pode se cortar, recebendo 2 de dano por nível da Maji que não pode reduzir (apenas com Ritual de Poder), usando seu próprio sangue como Ponto de Essência." },
+        hab2: { nome: "Ritual de Poder", desc: "Uma vez por dia, durante 1 cena, você pode realizar um ritual onde uma criatura é sacrificada. Um número de vezes igual ao nível da criatura +1, você pode reduzir 3 de dano.", req: "Astúcia 3" },
+        hab3: { nome: "Pacto de Vida", desc: "Uma vez por dia, você pode curar PV igual à sua primeira Caixa de PV ao custo de 2 Pontos Elementais.", req: "Ritual de Poder, Inteligência 2" },
+        hab4: { nome: "Poder Sangrento", desc: "Sempre que usar a habilidade Sangue Essencial, a Maji conjurada pode receber +1 rodada, +1 uso ou +1d6 de dano, à sua escolha.", req: "Sangue Essencial, Astúcia 2" }
+    }
+
 
 };
