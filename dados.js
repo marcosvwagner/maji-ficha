@@ -74,7 +74,7 @@ const bancoItens = {
         "berdiche": { nome: "Berdiche", dano: "3d6", esp: "arma, duas mãos, alcance 0-1, perfurar-5", tipo: "pesada", tags: ["arma", "duas maos", "alcance", "perfurar", "haste", "pesada"] },
         "bisento": { nome: "Bisento", dano: "3d6", esp: "arma, duas mãos, alcance 0-1, cortante", tipo: "leve", tags: ["arma", "duas maos", "alcance", "cortante", "haste", "leve"] },
         "foice": { nome: "Foice", dano: "2d6", esp: "arma, duas mãos, alcance 0-1, perfurar-5, ágil", tipo: "leve", tags: ["arma", "duas maos", "alcance", "agil", "haste", "leve"] },
-        
+
         // === LANÇAS ===
         "dardo": { nome: "Dardo", dano: "2d6", esp: "arma, uma mão, alcance 0-1, perfurar-5, arremesso 4, ágil", tipo: "leve", tags: ["arma", "uma mao", "alcance", "arremesso", "agil", "lanca", "leve"] },
         "dory": { nome: "Dory", dano: "3d6", esp: "arma, duas mãos, alcance 1, perfurar-3, arremesso 1-2, ágil", tipo: "leve", tags: ["arma", "duas maos", "alcance", "perfurar", "agil", "lanca", "leve"] },
@@ -222,12 +222,12 @@ const dadosGuildas = {
     "oberon": {
         bonus: "Vigor",
         slotsArmas: [
-            { label: "Arma 1", filtros: ["arma"] },
-            { label: "Arma 2", filtros: ["arma"] },
-            { label: "Arma 3", filtros: ["arma"] },
-            { label: "Sub-Arma 1", filtros: ["sub-arma"] },
-            { label: "Sub-Arma 2", filtros: ["sub-arma"] },
-            { label: "Sub-Arma 3", filtros: ["sub-arma"] }
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] }
         ],
         slotsTraje: [
             { label: "Traje", filtros: ["traje"] },
@@ -259,7 +259,7 @@ const dadosGuildas = {
         slotsArmas: [
             { label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }
         ],
-        slotsTraje: [{ label: "Traje", filtros: [] }],
+        // slotsTraje: [{ label: "Traje", filtros: [] }],
         riqueza: "3",
         maji: "Maji Base de Fala, Sem Obstáculos, Maji Base de Escrita, Teleporte, uma Maji.",
         hab1: { nome: "Em Todo Lugar", desc: "Você cria um portal estratégico. Ao conjurar Sem Obstáculos, pode alterar seu texto, para criar portais que conectam o caminho percorrido por você, onde os seres podem atravessar pelo portal até o final do Turno de Equipe." },
@@ -270,7 +270,7 @@ const dadosGuildas = {
     "tigre": {
         bonus: "Agilidade",
         slotsArmas: [
-            { label: "espada ou lança", filtros: ["espada", "lanca"] }
+            { label: "Espada ou Lança", filtros: ["espada", "lanca"] }
         ],
         slotsTraje: [{ label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }],
         riqueza: "3",
@@ -293,6 +293,20 @@ const dadosGuildas = {
         hab3: { nome: "Historico Problematico", desc: "Realize um teste oposto de Carisma contra um alvo, se tiver sucesso o alvo recebe Medo 1, se retirar o dobro do resultado do alvo, se torna Medo 2.", req: "Carisma 2" },
         hab4: { nome: "Velocidade de Rapina", desc: "Os insetos tentam fugir. Pode gastar 2 Ações para se mover em 3-alcances.", req: "Agilidade 2" }
     },
+    "blusan": {
+        bonus: "Inteligência",
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] }],
+        slotsTraje: [
+            { label: "Traje de Couro ou Malha", filtros: ["couro", "malha"] }],
+        riqueza: "2",
+        maji: "Maji Base de Sinal, Duas Maji de Sol, Duas Maji",
+        hab1: { nome: "Sol Azul", desc: "Ao utilizar uma Maji de Sol que causaria a condição Queimando, você pode escolher causar Atordoado do mesmo nível em vez disso. Nesse caso, a Maji não causa dano." },
+        hab2: { nome: "Sol Verde", desc: "Ao utilizar uma Maji de Sol que causaria Queimando, você pode alterar o efeito para, em vez de causar dano, conceder cura por 3 rodadas. Só pode ser usado uma vez por alvo na cena.", req: "Inteligência 3" },
+        hab3: { nome: "Sol Vermelho", desc: "Ao utilizar uma Maji de Sol que causaria Queimando, você pode escolher, em vez disso, causar 2d6 de dano de fogo por nível de Queimando que seria aplicado ao alvo.", req: "Inteligência 4" },
+        hab4: { nome: "Sol Roxo", desc: "Ao ativar Sol Azul, você pode causar Queimando e Atordoado do mesmo nível ao mesmo tempo. Se a Maji causar dano normalmente, ela ainda causa o dano, porém você gasta o dobro de Pontos Celestiais.", req: "Sol Azul, Inteligência 5" }
+    },
+
     "exterminadores": {
         bonus: "Vigor",
         slotsArmas: [
@@ -305,5 +319,77 @@ const dadosGuildas = {
         hab2: { nome: "Auto Sacrificio", desc: "Para cada vez que escolher não usar uma Reação, no seu próximo ataque receba +1d6-dano.", req: "Vigor 3" },
         hab3: { nome: "Força Devastadora", desc: "Todo dado de dano que resultar em 6, pode rolar +1d6 no dano.", req: "Força 4" },
         hab4: { nome: "Homem Sem Medo", desc: "A experiência em batalhas contra Vorulos fortaleceu sua mente. Você reduz Medo 1 para Medo 0 (ou seja, não sofre a condição) e Medo 2 para Medo 1.", req: "Carisma 2" }
-    }
+    },
+
+    "dancarinas": {
+        bonus: "Agilidade",
+        slotsArmas: [
+            { label: "Pata", item: "pata" },
+            { label: "Pata", item: "pata" }
+        ],
+        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        riqueza: "2",
+        maji: "Maji Base de Fala, Duas Maji de Fala, Uma Maji",
+        hab1: { nome: "Dança de Ataque", desc: "Enquanto estiver com uma pata em cada mão, se errar um ataque com pata, você pode realizar um ataque com a outra pata gastando 1 Ação neste Turno de Equipe." },
+        hab2: { nome: "Dança Imprevisível", desc: "A reação Esquiva não pode ser usada contra seus ataques com pata.", req: "Agilidade 3, Astúcia 2" },
+        hab3: { nome: "Dança Esquiva", desc: "Uma vez por rodada, ao usar a reação Esquiva, você pode usar seu nível de Astúcia como modificador. Apenas se estiver usando duas patas.", req: "Agilidade 3, Astúcia 3" },
+        hab4: { nome: "Dança Veloz", desc: "Depois de acertar um ataque com pata, você recebe a condição Rápido durante este Turno de Equipe.", req: "Agilidade 3" }
+    },
+
+    "prime": {
+        bonus: "Inteligência",
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] }
+        ],
+        slotsTraje: [{ label: "Traje de Malha", item: "malha" }],
+        riqueza: "2",
+        maji: "Maji Base de Sinal, Três Maji",
+        hab1: { nome: "Reformular", desc: "Uma vez por cena, você pode aumentar em +1 nível (escolhendo uma evolução) uma de suas Maji, mas ela passa a custar o dobro de Pontos de Essência ao ser usada. Ao fim da cena, a Maji retorna ao seu nível normal." },
+        hab2: { nome: "Convergência Dissonante", desc: "Uma vez por cena, ao usar uma Maji de Fala ou Sinal (ou ao criar uma Maji de Escrita), você pode realizar outra Maji ao mesmo tempo, no mesmo ato. No entanto, a fusão te machuca, causando Atordoado 1.", req: "Inteligência 3, Vigor 2" },
+        hab3: { nome: "Subtração Máxima", desc: "Ao usar uma Maji de Fala ou Sinal (ou ao criar uma Maji de Escrita), você pode aumentar o dano em até 2d6, sofrendo o mesmo valor de dano em si mesmo sem poder reduzir.", req: "Inteligência 4, Vigor 2" },
+        hab4: { nome: "Subversão Instável", desc: "Você pode alterar parâmetros numéricos ao utilizar uma Maji de Fala ou Sinal (ou ao criar uma Maji de Escrita). Sempre que fizer isso, você recebe Exausto 1 devido à potência da Maji.", req: "Inteligência 5, Vigor 2" }
+    },
+
+    "varbar": {
+        bonus: "Força",
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Arma", filtros: ["arma"] }
+        ],
+        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        riqueza: "2",
+        maji: "Nenhuma",
+        hab1: { nome: "Esforço Eterno", desc: "Você é imune aos efeitos causados pela 1ª Penalidade." },
+        hab2: { nome: "Ato Final", desc: "Ao escolher Agarre a Vida como Ato de Morte, você pode escolher ativar a condição Morrendo e não realizar a rolagem de dados.", req: "Vigor 2" },
+        hab3: { nome: "Vigoroso", desc: "Você é imune aos efeitos causados pela 2ª Penalidade.", req: "Vigor 3" },
+        hab4: { nome: "Furiso", desc: "Duas vezes por cena, você pode ativar essa habilidade, recebendo +1d10 por 3 rodadas em testes de Força ou Agilidade, à sua escolha. Ao final dessas rodadas, recebe Atordoado 1 até o fim da cena. Na segunda ativação da habilidade na mesma cena, recebe Atordoado 2.", req: "Agilidade 2, Força 2, Vigor 2" }
+    },
+
+    "runa": {
+        bonus: "Inteligência",
+        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        slotsOutros: [{ label: "Potes de Tinta", item: "tinta" }],
+        riqueza: "2",
+        maji: "Maji Base de Escrita, Duas Maji de Escrita, Duas Maji",
+        hab1: { nome: "Tinta Maji", desc: "Uma vez por cena, você pode transferir um tipo de essência para um pote. Cada pote tem 3 usos: gaste 1 uso para Maji de Escrita Pequena ou 2 usos para Maji de Escrita Grande. Ao usar a tinta, escolha uma Maji compatível com o tipo de essência contida no pote." },
+        hab2: { nome: "Encantamento Rúnico", desc: "Uma vez por cena, você pode marcar uma Maji de Escrita Pequena em um Equipamento. Quem usar o equipamento pode gastar 3 Ações para ativar a Maji; após isso, as escritas somem.", req: "Astúcia 2, Inteligência 3" },
+        hab3: { nome: "Lacre de Encantamento", desc: "O Encantamento Rúnico não some ao ser usado. Porém, após cada ativação, ele exige 3 rodadas para poder ser usado novamente.", req: "Encantamento Rúnico, Inteligência 3" },
+        hab4: { nome: "Super Tinta", desc: "Ao usar uma Maji com Tinta Maji, você pode gastar 1 Ação para usá-la novamente. Apenas após isso a tinta some.", req: "Tinta Maji, Astúcia 3" }
+    },
+
+    "ampulheta": {
+        bonus: "Inteligência",
+        slotsTraje: [{ label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }],
+        slotsArmas: [{ label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }],
+        riqueza: "3",
+        maji: "Maji Base de Sinal ou Escrita, Duas Maji de Tempo, Uma Maji",
+        hab1: { nome: "Flecha do Tempo", desc: "Ao usar Maji de Tempo, elas possuem +1 uso ou +1 rodada. Essa habilidade só funciona se o Ponto Cósmico do Campo estiver maior ou igual a 5." },
+        hab2: { nome: "Entropicamente", desc: "Ao usar uma Maji de Tempo, você pode escolher causar 1d6 de dano em todos no campo.", req: "Inteligência 3" },
+        hab3: { nome: "Causalidade", desc: "Ao usar uma Maji de Tempo, você cria uma reação temporal a partir da essência residual usada. No mesmo turno, se conjurar outra Maji de Tempo, ela não custará Ponto Cósmico.", req: "Inteligência 3" },
+        hab4: { nome: "Cronologia Quebrada", desc: "Uma vez por cena, você pode escolher ter sucesso automático em qualquer teste.", req: "Agilidade 4" }
+    },
+
+    
+
 };
