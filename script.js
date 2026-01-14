@@ -1,5 +1,7 @@
+
 // ==================================================================================
 // ARQUIVO: script.js
+// Lógica Completa: Proficiências, Slots Dinâmicos e Persistência
 // ==================================================================================
 
 const STORAGE_KEY = "maji_ficha_v1";
@@ -25,7 +27,7 @@ function setProficiencia(atributo, nivel) {
 
     atualizarVisualProficiencia();
     
-    // Se mudou Vigor, recalcula vida
+    // Se mudou Vigor, recalcula vida imediatamente
     if (atributo === "Vigor") {
         calcularVida();
     }
@@ -34,6 +36,7 @@ function setProficiencia(atributo, nivel) {
 }
 
 function atualizarVisualProficiencia() {
+    // 1. Pinta os losangos
     for (const [attr, nivelAtual] of Object.entries(proficiencias)) {
         for (let i = 1; i <= 4; i++) {
             const pip = document.getElementById(`pip_${attr}_${i}`);
@@ -46,7 +49,39 @@ function atualizarVisualProficiencia() {
             }
         }
     }
+    // 2. Atualiza a lista de textos de bônus
+    atualizarListaBonus();
 }
+
+function atualizarListaBonus() {
+    const lista = document.getElementById("listaBonusProficiencia");
+    if (!lista) return; // Segurança caso o HTML não tenha sido atualizado ainda
+    
+    lista.innerHTML = ""; // Limpa a lista atual
+    let temBonus = false;
+
+    // Percorre todos os atributos que o jogador tem
+    for (const [attr, nivel] of Object.entries(proficiencias)) {
+        if (nivel > 0 && typeof regrasProficiencia !== 'undefined' && regrasProficiencia[attr]) {
+            // Mostra todos os níveis acumulados até o nível atual
+            for (let i = 1; i <= nivel; i++) {
+                if (regrasProficiencia[attr][i]) {
+                    const item = document.createElement("li");
+                    item.style.marginBottom = "4px";
+                    item.innerHTML = `<strong>${attr} ${i}:</strong> ${regrasProficiencia[attr][i]}`;
+                    lista.appendChild(item);
+                    temBonus = true;
+                }
+            }
+        }
+    }
+
+    if (!temBonus) {
+        lista.innerHTML = '<li style="font-style: italic; color: #888;">Nenhuma proficiência dominada.</li>';
+    }
+}
+
+// --- FUNÇÕES DE INTERFACE ---
 
 function toggleStatus(id) {
     const checkbox = document.getElementById("checkHab" + id);
@@ -210,13 +245,13 @@ function atualizarFicha(isLoading = false) {
     document.getElementById("valCarisma").innerText = stats["Carisma"];
     document.getElementById("valInteligencia").innerText = stats["Inteligência"];
     
-    // Atualiza a vida baseado na proficiencia de vigor que está no objeto global
+    // Calcula vida baseado na proficiência global
     calcularVida();
     if (!isLoading) salvarDados();
 }
 
 function calcularVida() {
-    // Agora pega do objeto global, não mais do select
+    // Pega o nível de Vigor do objeto global proficiencias
     const nivelVigor = proficiencias["Vigor"] || 0;
     const display = document.getElementById("displayVida");
     let vidaTexto = "10 | 20 | 30"; 
@@ -246,8 +281,9 @@ function salvarDados() {
         nome: document.getElementById("nomeChar").value,
         sobrenome: document.getElementById("sobrenomeChar").value,
         guilda: document.getElementById("selectGuilda").value,
-        // Removemos profVigor daqui, pois agora está dentro do objeto proficiencias
-        proficiencias: proficiencias, // SALVA O OBJETO DE PROFICIÊNCIAS
+        
+        // Salva o objeto completo de proficiências
+        proficiencias: proficiencias,
         
         hab2: document.getElementById("checkHab2").checked,
         hab3: document.getElementById("checkHab3").checked,
@@ -265,7 +301,6 @@ function salvarDados() {
 }
 
 function baixarFicha() {
-    // Mesma lógica do salvar, mas para arquivo
     const dados = {
         nome: document.getElementById("nomeChar").value,
         sobrenome: document.getElementById("sobrenomeChar").value,
@@ -326,11 +361,11 @@ function aplicarDadosNaTela(dados) {
         atualizarFicha(true); 
     }
 
-    // Restaura Proficiências
+    // Restaura Proficiências e atualiza visual
     if (dados.proficiencias) {
         proficiencias = dados.proficiencias;
-        atualizarVisualProficiencia(); // Pinta os losangos
-        calcularVida(); // Recalcula vida baseado no novo Vigor
+        atualizarVisualProficiencia();
+        calcularVida();
     }
 
     if (dados.hab2) { document.getElementById("checkHab2").checked = true; toggleStatus(2); }
@@ -362,9 +397,10 @@ function carregarDados() {
     aplicarDadosNaTela(dados); 
 }
 
+// Inicialização
 document.addEventListener("DOMContentLoaded", () => {
     carregarDados();
-    // Garante que os losangos visuais estejam sincronizados ao iniciar
+    // Garante que os losangos comecem corretos (mesmo se vazio)
     atualizarVisualProficiencia();
     
     const inputs = document.querySelectorAll("input[type='text'], textarea");
