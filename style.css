@@ -107,6 +107,38 @@ button:hover { background-color: #555; }
 }
 
 /* ==========================================================================
+   PROFICIÊNCIAS
+   ========================================================================== */
+.prof-track {
+    display: flex;
+    justify-content: center;
+    gap: 8px; /* Espaço entre os losangos */
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+.pip {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc; /* Cor desativada */
+    border: 1px solid #999;
+    transform: rotate(45deg); /* Gira o quadrado para virar losango */
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.pip:hover {
+    transform: rotate(45deg) scale(1.2); /* Cresce um pouco ao passar o mouse */
+    border-color: #333;
+}
+
+/* Quando estiver ativo (selecionado) */
+.pip.active {
+    background-color: #d00; /* Vermelho sangue */
+    border-color: #800;
+}
+
+/* ==========================================================================
    HABILIDADES
    ========================================================================== */
 .hab-container { 

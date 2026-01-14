@@ -1,4 +1,52 @@
+// ==================================================================================
+// ARQUIVO: script.js
+// ==================================================================================
+
 const STORAGE_KEY = "maji_ficha_v1";
+
+// Estado Global das Proficiências (0 = Nenhuma)
+let proficiencias = {
+    "Agilidade": 0,
+    "Força": 0,
+    "Vigor": 0,
+    "Astúcia": 0,
+    "Carisma": 0,
+    "Inteligência": 0
+};
+
+// --- FUNÇÃO CORE: SETAR PROFICIÊNCIA ---
+function setProficiencia(atributo, nivel) {
+    // Se clicar no nível que já está, zera (toggle)
+    if (proficiencias[atributo] === nivel) {
+        proficiencias[atributo] = 0;
+    } else {
+        proficiencias[atributo] = nivel;
+    }
+
+    atualizarVisualProficiencia();
+    
+    // Se mudou Vigor, recalcula vida
+    if (atributo === "Vigor") {
+        calcularVida();
+    }
+    
+    salvarDados();
+}
+
+function atualizarVisualProficiencia() {
+    for (const [attr, nivelAtual] of Object.entries(proficiencias)) {
+        for (let i = 1; i <= 4; i++) {
+            const pip = document.getElementById(`pip_${attr}_${i}`);
+            if (pip) {
+                if (i <= nivelAtual) {
+                    pip.classList.add("active");
+                } else {
+                    pip.classList.remove("active");
+                }
+            }
+        }
+    }
+}
 
 function toggleStatus(id) {
     const checkbox = document.getElementById("checkHab" + id);
@@ -94,7 +142,7 @@ function atualizarDetalheDinâmico(selectElement, banco) {
                 info = `<strong>Dano:</strong> ${i.dano} | <strong>Alc:</strong> ${i.alcance || "0"} | <strong>Tipo:</strong> ${i.tipo || "-"}`;
             }
         } else {
-            info = `<strong>Def:</strong> ${i.defesa}`;
+            info = `<strong>Def:</strong> ${i.defesa} | <strong>Pen:</strong> ${i.pen}`;
         }
         let extras = i.esp ? i.esp : (i.especial ? i.especial : "");
         div.innerHTML = `${info}<br><em>${extras}</em>`;
@@ -162,22 +210,23 @@ function atualizarFicha(isLoading = false) {
     document.getElementById("valCarisma").innerText = stats["Carisma"];
     document.getElementById("valInteligencia").innerText = stats["Inteligência"];
     
+    // Atualiza a vida baseado na proficiencia de vigor que está no objeto global
     calcularVida();
     if (!isLoading) salvarDados();
 }
 
 function calcularVida() {
-    const prof = document.getElementById("profVigor").value;
+    // Agora pega do objeto global, não mais do select
+    const nivelVigor = proficiencias["Vigor"] || 0;
     const display = document.getElementById("displayVida");
     let vidaTexto = "10 | 20 | 30"; 
     
-    if (prof == "1") vidaTexto = "20 | 40 | 60";
-    else if (prof == "2") vidaTexto = "30 | 60 | 90";
-    else if (prof == "3") vidaTexto = "40 | 80 | 120";
-    else if (prof == "4") vidaTexto = "50 | 100 | 150";
+    if (nivelVigor == 1) vidaTexto = "20 | 40 | 60";
+    else if (nivelVigor == 2) vidaTexto = "30 | 60 | 90";
+    else if (nivelVigor == 3) vidaTexto = "40 | 80 | 120";
+    else if (nivelVigor >= 4) vidaTexto = "50 | 100 | 150";
 
     display.innerText = vidaTexto;
-    salvarDados();
 }
 
 function imprimirPDF() {
@@ -197,11 +246,14 @@ function salvarDados() {
         nome: document.getElementById("nomeChar").value,
         sobrenome: document.getElementById("sobrenomeChar").value,
         guilda: document.getElementById("selectGuilda").value,
-        profVigor: document.getElementById("profVigor").value,
+        // Removemos profVigor daqui, pois agora está dentro do objeto proficiencias
+        proficiencias: proficiencias, // SALVA O OBJETO DE PROFICIÊNCIAS
+        
         hab2: document.getElementById("checkHab2").checked,
         hab3: document.getElementById("checkHab3").checked,
         hab4: document.getElementById("checkHab4").checked,
-        equipamentos: {} 
+        equipamentos: {},
+        anotacoes: document.getElementById("armasGrupo") ? document.getElementById("armasGrupo").value : ""
     };
 
     const selects = document.querySelectorAll('select[id^="dyn_"]');
@@ -213,15 +265,17 @@ function salvarDados() {
 }
 
 function baixarFicha() {
+    // Mesma lógica do salvar, mas para arquivo
     const dados = {
         nome: document.getElementById("nomeChar").value,
         sobrenome: document.getElementById("sobrenomeChar").value,
         guilda: document.getElementById("selectGuilda").value,
-        profVigor: document.getElementById("profVigor").value,
+        proficiencias: proficiencias,
         hab2: document.getElementById("checkHab2").checked,
         hab3: document.getElementById("checkHab3").checked,
         hab4: document.getElementById("checkHab4").checked,
-        equipamentos: {}
+        equipamentos: {},
+        anotacoes: document.getElementById("armasGrupo") ? document.getElementById("armasGrupo").value : ""
     };
 
     const selects = document.querySelectorAll('select[id^="dyn_"]');
@@ -254,7 +308,7 @@ function subirFicha(input) {
             const json = e.target.result;
             const dados = JSON.parse(json);
             aplicarDadosNaTela(dados);
-            window.location.reload();
+            alert("Ficha carregada com sucesso!");
         } catch (err) {
             alert("Erro ao ler o arquivo.");
             console.error(err);
@@ -272,14 +326,20 @@ function aplicarDadosNaTela(dados) {
         atualizarFicha(true); 
     }
 
-    if (dados.profVigor) {
-        document.getElementById("profVigor").value = dados.profVigor;
-        calcularVida();
+    // Restaura Proficiências
+    if (dados.proficiencias) {
+        proficiencias = dados.proficiencias;
+        atualizarVisualProficiencia(); // Pinta os losangos
+        calcularVida(); // Recalcula vida baseado no novo Vigor
     }
 
     if (dados.hab2) { document.getElementById("checkHab2").checked = true; toggleStatus(2); }
     if (dados.hab3) { document.getElementById("checkHab3").checked = true; toggleStatus(3); }
     if (dados.hab4) { document.getElementById("checkHab4").checked = true; toggleStatus(4); }
+
+    if (dados.anotacoes && document.getElementById("armasGrupo")) {
+        document.getElementById("armasGrupo").value = dados.anotacoes;
+    }
 
     if (dados.equipamentos) {
         for (const [id, valor] of Object.entries(dados.equipamentos)) {
@@ -302,9 +362,11 @@ function carregarDados() {
     aplicarDadosNaTela(dados); 
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
     carregarDados();
-    const inputs = document.querySelectorAll("input[type='text']");
+    // Garante que os losangos visuais estejam sincronizados ao iniciar
+    atualizarVisualProficiencia();
+    
+    const inputs = document.querySelectorAll("input[type='text'], textarea");
     inputs.forEach(inp => inp.addEventListener("input", salvarDados));
 });

@@ -74,43 +74,81 @@
             </div>
 
             <div class="stats-grid">
-                <div class="stat-box"><label>Agilidade</label>
+                <div class="stat-box">
+                    <label>Agilidade</label>
                     <div class="stat-val" id="valAgilidade">1</div>
+                    <div class="prof-track">
+                        <div class="pip" onclick="setProficiencia('Agilidade', 1)" id="pip_Agilidade_1"></div>
+                        <div class="pip" onclick="setProficiencia('Agilidade', 2)" id="pip_Agilidade_2"></div>
+                        <div class="pip" onclick="setProficiencia('Agilidade', 3)" id="pip_Agilidade_3"></div>
+                        <div class="pip" onclick="setProficiencia('Agilidade', 4)" id="pip_Agilidade_4"></div>
+                    </div>
                 </div>
-                <div class="stat-box"><label>Força</label>
+
+                <div class="stat-box">
+                    <label>Força</label>
                     <div class="stat-val" id="valForca">1</div>
+                    <div class="prof-track">
+                        <div class="pip" onclick="setProficiencia('Força', 1)" id="pip_Força_1"></div>
+                        <div class="pip" onclick="setProficiencia('Força', 2)" id="pip_Força_2"></div>
+                        <div class="pip" onclick="setProficiencia('Força', 3)" id="pip_Força_3"></div>
+                        <div class="pip" onclick="setProficiencia('Força', 4)" id="pip_Força_4"></div>
+                    </div>
                 </div>
-                <div class="stat-box"><label>Vigor</label>
+
+                <div class="stat-box">
+                    <label>Vigor</label>
                     <div class="stat-val" id="valVigor">1</div>
+                    <div class="prof-track">
+                        <div class="pip" onclick="setProficiencia('Vigor', 1)" id="pip_Vigor_1"></div>
+                        <div class="pip" onclick="setProficiencia('Vigor', 2)" id="pip_Vigor_2"></div>
+                        <div class="pip" onclick="setProficiencia('Vigor', 3)" id="pip_Vigor_3"></div>
+                        <div class="pip" onclick="setProficiencia('Vigor', 4)" id="pip_Vigor_4"></div>
+                    </div>
                 </div>
-                <div class="stat-box"><label>Astúcia</label>
+
+                <div class="stat-box">
+                    <label>Astúcia</label>
                     <div class="stat-val" id="valAstucia">1</div>
+                    <div class="prof-track">
+                        <div class="pip" onclick="setProficiencia('Astúcia', 1)" id="pip_Astúcia_1"></div>
+                        <div class="pip" onclick="setProficiencia('Astúcia', 2)" id="pip_Astúcia_2"></div>
+                        <div class="pip" onclick="setProficiencia('Astúcia', 3)" id="pip_Astúcia_3"></div>
+                        <div class="pip" onclick="setProficiencia('Astúcia', 4)" id="pip_Astúcia_4"></div>
+                    </div>
                 </div>
-                <div class="stat-box"><label>Carisma</label>
+
+                <div class="stat-box">
+                    <label>Carisma</label>
                     <div class="stat-val" id="valCarisma">1</div>
+                    <div class="prof-track">
+                        <div class="pip" onclick="setProficiencia('Carisma', 1)" id="pip_Carisma_1"></div>
+                        <div class="pip" onclick="setProficiencia('Carisma', 2)" id="pip_Carisma_2"></div>
+                        <div class="pip" onclick="setProficiencia('Carisma', 3)" id="pip_Carisma_3"></div>
+                        <div class="pip" onclick="setProficiencia('Carisma', 4)" id="pip_Carisma_4"></div>
+                    </div>
                 </div>
-                <div class="stat-box"><label>Inteligência</label>
+
+                <div class="stat-box">
+                    <label>Inteligência</label>
                     <div class="stat-val" id="valInteligencia">1</div>
+                    <div class="prof-track">
+                        <div class="pip" onclick="setProficiencia('Inteligência', 1)" id="pip_Inteligência_1"></div>
+                        <div class="pip" onclick="setProficiencia('Inteligência', 2)" id="pip_Inteligência_2"></div>
+                        <div class="pip" onclick="setProficiencia('Inteligência', 3)" id="pip_Inteligência_3"></div>
+                        <div class="pip" onclick="setProficiencia('Inteligência', 4)" id="pip_Inteligência_4"></div>
+                    </div>
                 </div>
             </div>
 
-            <div
-                style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed #ccc; padding-top: 10px;">
-                <div>
-                    <label>Proficiência em VIGOR:</label>
-                    <select id="profVigor" onchange="calcularVida()" style="width: 150px;">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div class="life-box">
-                    PV: <span id="displayVida">10 | 20 | 30</span>
+            <div style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px; display: flex; justify-content: center;">
+                <div class="life-box" style="width: 100%;">
+                    PV (Vida): <span id="displayVida" style="font-size: 1.3em;">10 | 20 | 30</span>
                 </div>
             </div>
-        </div>
+
+
+            
 
         <div class="section">
             <h2>3. Habilidades da Guilda</h2>
