@@ -16,6 +16,27 @@ let proficiencias = {
     "Inteligência": 0
 };
 
+let atributos = {
+    "Agilidade": 1,
+    "Força": 1,
+    "Vigor": 1,
+    "Astúcia": 1,
+    "Carisma": 1,
+    "Inteligência": 1
+};
+
+let bonusGuilda = {
+    "Agilidade": 0,
+    "Força": 0,
+    "Vigor": 0,
+    "Astúcia": 0,
+    "Carisma": 0,
+    "Inteligência": 0
+};
+
+const MIN_ATRIBUTO = 1;
+const MAX_ATRIBUTO = 5;
+
 // --- FUNÇÃO CORE: SETAR PROFICIÊNCIA ---
 function setProficiencia(atributo, nivel) {
     // Se clicar no nível que já está, zera (toggle)
@@ -26,12 +47,12 @@ function setProficiencia(atributo, nivel) {
     }
 
     atualizarVisualProficiencia();
-    
+
     // Se mudou Vigor, recalcula vida imediatamente
     if (atributo === "Vigor") {
         calcularVida();
     }
-    
+
     salvarDados();
 }
 
@@ -56,7 +77,7 @@ function atualizarVisualProficiencia() {
 function atualizarListaBonus() {
     const lista = document.getElementById("listaBonusProficiencia");
     if (!lista) return; // Segurança caso o HTML não tenha sido atualizado ainda
-    
+
     lista.innerHTML = ""; // Limpa a lista atual
     let temBonus = false;
 
@@ -83,6 +104,24 @@ function atualizarListaBonus() {
 
 // --- FUNÇÕES DE INTERFACE ---
 
+function setStatusHabilidade(id, ativa) {
+    const checkbox = document.getElementById("checkHab" + id);
+    const texto = document.getElementById("statusHab" + id);
+    const card = document.getElementById("cardHab" + id);
+
+    checkbox.checked = ativa;
+
+    if (ativa) {
+        texto.innerText = "APRENDIDA";
+        texto.classList.add("ativo");
+        card.classList.add("aprendida");
+    } else {
+        texto.innerText = "Não Aprendida";
+        texto.classList.remove("ativo");
+        card.classList.remove("aprendida");
+    }
+}
+
 function toggleStatus(id) {
     const checkbox = document.getElementById("checkHab" + id);
     const texto = document.getElementById("statusHab" + id);
@@ -97,12 +136,12 @@ function toggleStatus(id) {
         texto.classList.remove("ativo");
         card.classList.remove("aprendida");
     }
-    salvarDados(); 
+    salvarDados();
 }
 
 function gerarSlotsEquipamento(containerId, slots, banco, prefixo) {
     const container = document.getElementById(containerId);
-    container.innerHTML = ""; 
+    container.innerHTML = "";
 
     if (!slots || slots.length === 0) {
         return;
@@ -118,8 +157,8 @@ function gerarSlotsEquipamento(containerId, slots, banco, prefixo) {
 
         const select = document.createElement("select");
         select.className = "equip-select";
-        select.id = `dyn_${prefixo}_${index}`; 
-        
+        select.id = `dyn_${prefixo}_${index}`;
+
         const defaultOpt = document.createElement("option");
         defaultOpt.value = "";
         defaultOpt.text = "- Selecione -";
@@ -145,8 +184,8 @@ function gerarSlotsEquipamento(containerId, slots, banco, prefixo) {
                 select.add(opt);
             }
         }
-        
-        select.addEventListener('change', function() {
+
+        select.addEventListener('change', function () {
             atualizarDetalheDinâmico(this, banco);
             salvarDados();
         });
@@ -166,7 +205,7 @@ function atualizarDetalheDinâmico(selectElement, banco) {
     const key = selectElement.value;
     const detailId = selectElement.id.replace('dyn_', 'det_');
     const div = document.getElementById(detailId);
-    
+
     if (key && banco[key]) {
         const i = banco[key];
         let info = "";
@@ -187,23 +226,21 @@ function atualizarDetalheDinâmico(selectElement, banco) {
 }
 
 function atualizarFicha(isLoading = false) {
+    for (let i = 2; i <= 4; i++) {
+        setStatusHabilidade(i, false);
+    }
     const guildaSelect = document.getElementById("selectGuilda");
     const guildaSelecionada = guildaSelect.value;
     const textoBonus = document.getElementById("textoBonusAtributo");
-    
-    if (!isLoading) {
-        for(let i=2; i<=4; i++){
-            document.getElementById("checkHab" + i).checked = false;
-            toggleStatus(i);
-        }
-    }
 
-    let stats = { "Agilidade": 1, "Força": 1, "Vigor": 1, "Astúcia": 1, "Carisma": 1, "Inteligência": 1 };
 
+    atributos = { "Agilidade": 1, "Força": 1, "Vigor": 1, "Astúcia": 1, "Carisma": 1, "Inteligência": 1 };
     if (dadosGuildas[guildaSelecionada]) {
         const g = dadosGuildas[guildaSelecionada];
-        
-        if(stats[g.bonus] !== undefined) stats[g.bonus] += 1;
+
+        if (atributos[g.bonus] !== undefined) {
+            atributos[g.bonus] += 1;
+        }
         textoBonus.innerText = `Bônus: +1 ${g.bonus}`;
         textoBonus.style.color = "#d00";
 
@@ -217,10 +254,15 @@ function atualizarFicha(isLoading = false) {
         document.getElementById("habDesc1").innerText = g.hab1.desc;
 
         for (let i = 2; i <= 4; i++) {
-            let hab = g["hab"+i];
+            let hab = g["hab" + i];
             document.getElementById("habNome" + i).value = hab ? hab.nome : "";
             document.getElementById("habDesc" + i).innerText = hab ? hab.desc : "";
             document.getElementById("habReq" + i).innerText = hab ? (hab.req || "--") : "--";
+        }
+        for (let i = 2; i <= 4; i++) {
+            if (g["hab" + i]) {
+                setStatusHabilidade(i, false);
+            }
         }
 
     } else {
@@ -230,21 +272,21 @@ function atualizarFicha(isLoading = false) {
         document.getElementById("riquezaGrupo").value = "";
         document.getElementById("containerArmas").innerHTML = "";
         document.getElementById("containerTrajes").innerHTML = "";
-        
-        for(let i=1; i<=4; i++){
+
+        for (let i = 1; i <= 4; i++) {
             document.getElementById("habNome" + i).value = "";
             document.getElementById("habDesc" + i).innerText = "";
-            if(i > 1) document.getElementById("habReq" + i).innerText = "--";
+            if (i > 1) document.getElementById("habReq" + i).innerText = "--";
         }
     }
 
-    document.getElementById("valAgilidade").innerText = stats["Agilidade"];
-    document.getElementById("valForca").innerText = stats["Força"];
-    document.getElementById("valVigor").innerText = stats["Vigor"];
-    document.getElementById("valAstucia").innerText = stats["Astúcia"];
-    document.getElementById("valCarisma").innerText = stats["Carisma"];
-    document.getElementById("valInteligencia").innerText = stats["Inteligência"];
-    
+    document.getElementById("valAgilidade").innerText = atributos["Agilidade"];
+    document.getElementById("valForca").innerText = atributos["Força"];
+    document.getElementById("valVigor").innerText = atributos["Vigor"];
+    document.getElementById("valAstucia").innerText = atributos["Astúcia"];
+    document.getElementById("valCarisma").innerText = atributos["Carisma"];
+    document.getElementById("valInteligencia").innerText = atributos["Inteligência"];
+
     // Calcula vida baseado na proficiência global
     calcularVida();
     if (!isLoading) salvarDados();
@@ -254,8 +296,8 @@ function calcularVida() {
     // Pega o nível de Vigor do objeto global proficiencias
     const nivelVigor = proficiencias["Vigor"] || 0;
     const display = document.getElementById("displayVida");
-    let vidaTexto = "10 | 20 | 30"; 
-    
+    let vidaTexto = "10 | 20 | 30";
+
     if (nivelVigor == 1) vidaTexto = "20 | 40 | 60";
     else if (nivelVigor == 2) vidaTexto = "30 | 60 | 90";
     else if (nivelVigor == 3) vidaTexto = "40 | 80 | 120";
@@ -281,10 +323,11 @@ function salvarDados() {
         nome: document.getElementById("nomeChar").value,
         sobrenome: document.getElementById("sobrenomeChar").value,
         guilda: document.getElementById("selectGuilda").value,
-        
+
         // Salva o objeto completo de proficiências
         proficiencias: proficiencias,
-        
+        atributos: atributos,
+
         hab2: document.getElementById("checkHab2").checked,
         hab3: document.getElementById("checkHab3").checked,
         hab4: document.getElementById("checkHab4").checked,
@@ -321,12 +364,12 @@ function baixarFicha() {
     const jsonStr = JSON.stringify(dados, null, 2);
     const blob = new Blob([jsonStr], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    
+
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", url);
     const nomePersonagem = dados.nome || "Maji";
     downloadAnchorNode.setAttribute("download", `Ficha_${nomePersonagem}.json`);
-    
+
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
@@ -338,7 +381,7 @@ function subirFicha(input) {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         try {
             const json = e.target.result;
             const dados = JSON.parse(json);
@@ -353,12 +396,22 @@ function subirFicha(input) {
 }
 
 function aplicarDadosNaTela(dados) {
+    if (dados.atributos) {
+        atributos = dados.atributos;
+
+        document.getElementById("valAgilidade").innerText = atributos["Agilidade"];
+        document.getElementById("valForca").innerText = atributos["Força"];
+        document.getElementById("valVigor").innerText = atributos["Vigor"];
+        document.getElementById("valAstucia").innerText = atributos["Astúcia"];
+        document.getElementById("valCarisma").innerText = atributos["Carisma"];
+        document.getElementById("valInteligencia").innerText = atributos["Inteligência"];
+    }
     if (dados.nome) document.getElementById("nomeChar").value = dados.nome;
     if (dados.sobrenome) document.getElementById("sobrenomeChar").value = dados.sobrenome;
-    
+
     if (dados.guilda) {
         document.getElementById("selectGuilda").value = dados.guilda;
-        atualizarFicha(true); 
+        atualizarFicha(true);
     }
 
     // Restaura Proficiências e atualiza visual
@@ -368,9 +421,14 @@ function aplicarDadosNaTela(dados) {
         calcularVida();
     }
 
-    if (dados.hab2) { document.getElementById("checkHab2").checked = true; toggleStatus(2); }
-    if (dados.hab3) { document.getElementById("checkHab3").checked = true; toggleStatus(3); }
-    if (dados.hab4) { document.getElementById("checkHab4").checked = true; toggleStatus(4); }
+    // if (dados.hab2) { document.getElementById("checkHab2").checked = true; toggleStatus(2); }
+    // if (dados.hab3) { document.getElementById("checkHab3").checked = true; toggleStatus(3); }
+    // if (dados.hab4) { document.getElementById("checkHab4").checked = true; toggleStatus(4); }
+
+    for (let i = 2; i <= 4; i++) {
+        const salva = dados["hab" + i];
+        setStatusHabilidade(i, !!salva);
+    }
 
     if (dados.anotacoes && document.getElementById("armasGrupo")) {
         document.getElementById("armasGrupo").value = dados.anotacoes;
@@ -381,12 +439,12 @@ function aplicarDadosNaTela(dados) {
             const el = document.getElementById(id);
             if (el) {
                 el.value = valor;
-                if(id.includes("arma")) atualizarDetalheDinâmico(el, bancoItens.armas);
-                if(id.includes("traje")) atualizarDetalheDinâmico(el, bancoItens.trajes);
+                if (id.includes("arma")) atualizarDetalheDinâmico(el, bancoItens.armas);
+                if (id.includes("traje")) atualizarDetalheDinâmico(el, bancoItens.trajes);
             }
         }
     }
-    
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
 }
 
@@ -394,7 +452,7 @@ function carregarDados() {
     const json = localStorage.getItem(STORAGE_KEY);
     if (!json) return;
     const dados = JSON.parse(json);
-    aplicarDadosNaTela(dados); 
+    aplicarDadosNaTela(dados);
 }
 
 // Inicialização
@@ -402,7 +460,32 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarDados();
     // Garante que os losangos comecem corretos (mesmo se vazio)
     atualizarVisualProficiencia();
-    
+
     const inputs = document.querySelectorAll("input[type='text'], textarea");
     inputs.forEach(inp => inp.addEventListener("input", salvarDados));
 });
+
+function alterarAtributo(nome, delta) {
+    let novoValor = atributos[nome] + delta;
+
+    if (novoValor < MIN_ATRIBUTO || novoValor > MAX_ATRIBUTO) return;
+
+    atributos[nome] = novoValor;
+
+    const idMap = {
+        "Agilidade": "valAgilidade",
+        "Força": "valForca",
+        "Vigor": "valVigor",
+        "Astúcia": "valAstucia",
+        "Carisma": "valCarisma",
+        "Inteligência": "valInteligencia"
+    };
+
+    document.getElementById(idMap[nome]).innerText = novoValor;
+
+    if (nome === "Vigor") {
+        calcularVida();
+    }
+
+    salvarDados();
+}

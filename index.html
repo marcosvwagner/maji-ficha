@@ -9,10 +9,8 @@
 </head>
 
 <body>
-
     <div class="container">
         <h1>Ficha de Majikai</h1>
-
         <div class="section">
             <h2>1. Identidade</h2>
             <div style="display: flex; gap: 10px;">
@@ -74,9 +72,15 @@
             </div>
 
             <div class="stats-grid">
+
+                <!-- AGILIDADE -->
                 <div class="stat-box">
-                    <label data-tooltip="Habilidade de se mover com rapidez, ter flexibilidade e precisão.">Agilidade</label>
-                    <div class="stat-val" id="valAgilidade">1</div>
+                    <label for="valAgilidade">Agilidade</label>
+                    <div class="stat-val">
+                        <button class="btn-attr" onclick="alterarAtributo('Agilidade', -1)">−</button>
+                        <span id="valAgilidade" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Agilidade', 1)">+</button>
+                    </div>
                     <div class="prof-track">
                         <div class="pip" onclick="setProficiencia('Agilidade', 1)" id="pip_Agilidade_1"></div>
                         <div class="pip" onclick="setProficiencia('Agilidade', 2)" id="pip_Agilidade_2"></div>
@@ -85,9 +89,14 @@
                     </div>
                 </div>
 
+                <!-- FORÇA -->
                 <div class="stat-box">
-                    <label data-tooltip="Capacidade de exercer poder físico para levantar, empurrar, puxar e destruir obstáculos.">Força</label>
-                    <div class="stat-val" id="valForca">1</div>
+                    <label for="valForca">Força</label>
+                    <div class="stat-val">
+                        <button class="btn-attr" onclick="alterarAtributo('Força', -1)">−</button>
+                        <span id="valForca" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Força', 1)">+</button>
+                    </div>
                     <div class="prof-track">
                         <div class="pip" onclick="setProficiencia('Força', 1)" id="pip_Força_1"></div>
                         <div class="pip" onclick="setProficiencia('Força', 2)" id="pip_Força_2"></div>
@@ -96,9 +105,14 @@
                     </div>
                 </div>
 
+                <!-- VIGOR -->
                 <div class="stat-box">
-                    <label data-tooltip="Energia, resistência física e capacidade de suportar adversidades.">Vigor</label>
-                    <div class="stat-val" id="valVigor">1</div>
+                    <label for="valVigor">Vigor</label>
+                    <div class="stat-val">
+                        <button class="btn-attr" onclick="alterarAtributo('Vigor', -1)">−</button>
+                        <span id="valVigor" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Vigor', 1)">+</button>
+                    </div>
                     <div class="prof-track">
                         <div class="pip" onclick="setProficiencia('Vigor', 1)" id="pip_Vigor_1"></div>
                         <div class="pip" onclick="setProficiencia('Vigor', 2)" id="pip_Vigor_2"></div>
@@ -107,9 +121,14 @@
                     </div>
                 </div>
 
+                <!-- ASTÚCIA -->
                 <div class="stat-box">
-                    <label data-tooltip="Discernimento prático, capacidade de encontrar soluções rápidas e percepção.">Astúcia</label>
-                    <div class="stat-val" id="valAstucia">1</div>
+                    <label for="valAstucia">Astúcia</label>
+                    <div class="stat-val">
+                        <button class="btn-attr" onclick="alterarAtributo('Astúcia', -1)">−</button>
+                        <span id="valAstucia" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Astúcia', 1)">+</button>
+                    </div>
                     <div class="prof-track">
                         <div class="pip" onclick="setProficiencia('Astúcia', 1)" id="pip_Astúcia_1"></div>
                         <div class="pip" onclick="setProficiencia('Astúcia', 2)" id="pip_Astúcia_2"></div>
@@ -118,9 +137,14 @@
                     </div>
                 </div>
 
+                <!-- CARISMA -->
                 <div class="stat-box">
-                    <label data-tooltip="Talento de influenciar, inspirar e compreender as emoções das pessoas ao seu redor.">Carisma</label>
-                    <div class="stat-val" id="valCarisma">1</div>
+                    <label for="valCarisma">Carisma</label>
+                    <div class="stat-val">
+                        <button class="btn-attr" onclick="alterarAtributo('Carisma', -1)">−</button>
+                        <span id="valCarisma" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Carisma', 1)">+</button>
+                    </div>
                     <div class="prof-track">
                         <div class="pip" onclick="setProficiencia('Carisma', 1)" id="pip_Carisma_1"></div>
                         <div class="pip" onclick="setProficiencia('Carisma', 2)" id="pip_Carisma_2"></div>
@@ -129,9 +153,14 @@
                     </div>
                 </div>
 
+                <!-- INTELIGÊNCIA -->
                 <div class="stat-box">
-                    <label data-tooltip="Aptidão de raciocinar, aprender, lembrar e resolver problemas de forma lógica.">Inteligência</label>
-                    <div class="stat-val" id="valInteligencia">1</div>
+                    <label for="valInteligencia">Inteligência</label>
+                    <div class="stat-val">
+                        <button class="btn-attr" onclick="alterarAtributo('Inteligência', -1)">−</button>
+                        <span id="valInteligencia" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Inteligência', 1)">+</button>
+                    </div>
                     <div class="prof-track">
                         <div class="pip" onclick="setProficiencia('Inteligência', 1)" id="pip_Inteligência_1"></div>
                         <div class="pip" onclick="setProficiencia('Inteligência', 2)" id="pip_Inteligência_2"></div>
@@ -139,26 +168,28 @@
                         <div class="pip" onclick="setProficiencia('Inteligência', 4)" id="pip_Inteligência_4"></div>
                     </div>
                 </div>
+
             </div>
 
-            <div style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px; display: flex; justify-content: center;">
+
+            <div
+                style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px; display: flex; justify-content: center;">
                 <div class="life-box" style="width: 100%;">
                     PV (Vida): <span id="displayVida" style="font-size: 1.3em;">10 | 20 | 30</span>
                 </div>
             </div>
 
-            <div style="margin-top: 15px; background: #f0f8ff; border: 1px solid #acc; padding: 10px; border-radius: 5px;">
+            <div
+                style="margin-top: 15px; background: #f0f8ff; border: 1px solid #acc; padding: 10px; border-radius: 5px;">
                 <h3 style="margin-top: 0; font-size: 1rem; color: #005662; border-bottom: 1px solid #acc;">
                     Bônus de Proficiência Ativos
                 </h3>
-                <ul id="listaBonusProficiencia" style="list-style: none; padding: 0; margin: 0; font-size: 0.9em; color: #444;">
+                <ul id="listaBonusProficiencia"
+                    style="list-style: none; padding: 0; margin: 0; font-size: 0.9em; color: #444;">
                     <li style="font-style: italic; color: #888;">Nenhuma proficiência dominada.</li>
                 </ul>
             </div>
         </div>
-
-
-
 
         <div class="section">
             <h2>3. Habilidades da Guilda</h2>
@@ -238,7 +269,6 @@
 
     <script src="dados.js"></script>
     <script src="script.js"></script>
-
 </body>
 
 </html>

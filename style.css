@@ -87,6 +87,44 @@ button:hover { background-color: #555; }
     color: #d00; 
 }
 
+
+/* Número do atributo */
+.attr-num {
+    min-width: 22px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #222;
+}
+
+/* Botões + e - */
+.btn-attr {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #aaa;
+    background: linear-gradient(#f8f8f8, #ddd);
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    padding: 0;
+    cursor: pointer;
+    color: #333;
+    box-shadow: inset 0 1px 0 #fff;
+}
+
+/* Hover */
+.btn-attr:hover {
+    background: linear-gradient(#fff, #ccc);
+    border-color: #777;
+}
+
+/* Clique */
+.btn-attr:active {
+    background: linear-gradient(#ccc, #aaa);
+    transform: scale(0.95);
+}
+
 .life-box { 
     margin-top: 15px; 
     padding: 10px; 
