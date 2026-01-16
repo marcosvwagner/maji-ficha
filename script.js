@@ -6,6 +6,8 @@
 
 const STORAGE_KEY = "maji_ficha_v1";
 
+let atributoBonusGuilda = null;
+
 // Estado Global das Proficiências (0 = Nenhuma)
 let proficiencias = {
     "Agilidade": 0,
@@ -33,6 +35,16 @@ let bonusGuilda = {
     "Carisma": 0,
     "Inteligência": 0
 };
+
+const idMap = {
+    "Agilidade": "valAgilidade",
+    "Força": "valForca",
+    "Vigor": "valVigor",
+    "Astúcia": "valAstucia",
+    "Carisma": "valCarisma",
+    "Inteligência": "valInteligencia"
+};
+
 
 const MIN_ATRIBUTO = 1;
 const MAX_ATRIBUTO = 5;
@@ -238,9 +250,8 @@ function atualizarFicha(isLoading = false) {
     if (dadosGuildas[guildaSelecionada]) {
         const g = dadosGuildas[guildaSelecionada];
 
-        if (atributos[g.bonus] !== undefined) {
-            atributos[g.bonus] += 1;
-        }
+        atributoBonusGuilda = g.bonus;
+
         textoBonus.innerText = `Bônus: +1 ${g.bonus}`;
         textoBonus.style.color = "#d00";
 
@@ -280,12 +291,12 @@ function atualizarFicha(isLoading = false) {
         }
     }
 
-    document.getElementById("valAgilidade").innerText = atributos["Agilidade"];
-    document.getElementById("valForca").innerText = atributos["Força"];
-    document.getElementById("valVigor").innerText = atributos["Vigor"];
-    document.getElementById("valAstucia").innerText = atributos["Astúcia"];
-    document.getElementById("valCarisma").innerText = atributos["Carisma"];
-    document.getElementById("valInteligencia").innerText = atributos["Inteligência"];
+    document.getElementById("valAgilidade").innerText = getValorFinalAtributo("Agilidade");
+    document.getElementById("valForca").innerText = getValorFinalAtributo("Força");
+    document.getElementById("valVigor").innerText = getValorFinalAtributo("Vigor");
+    document.getElementById("valAstucia").innerText = getValorFinalAtributo("Astúcia");
+    document.getElementById("valCarisma").innerText = getValorFinalAtributo("Carisma");
+    document.getElementById("valInteligencia").innerText = getValorFinalAtributo("Inteligência");
 
     // Calcula vida baseado na proficiência global
     calcularVida();
@@ -305,6 +316,15 @@ function calcularVida() {
 
     display.innerText = vidaTexto;
 }
+
+function getValorFinalAtributo(nome) {
+    let valor = atributos[nome];
+    if (atributoBonusGuilda === nome) {
+        valor += 1;
+    }
+    return valor;
+}
+
 
 function imprimirPDF() {
     const nome = document.getElementById("nomeChar").value || "Personagem";
@@ -348,6 +368,7 @@ function baixarFicha() {
         nome: document.getElementById("nomeChar").value,
         sobrenome: document.getElementById("sobrenomeChar").value,
         guilda: document.getElementById("selectGuilda").value,
+        atributos: atributos, 
         proficiencias: proficiencias,
         hab2: document.getElementById("checkHab2").checked,
         hab3: document.getElementById("checkHab3").checked,
@@ -386,7 +407,6 @@ function subirFicha(input) {
             const json = e.target.result;
             const dados = JSON.parse(json);
             aplicarDadosNaTela(dados);
-            alert("Ficha carregada com sucesso!");
         } catch (err) {
             alert("Erro ao ler o arquivo.");
             console.error(err);
@@ -396,22 +416,24 @@ function subirFicha(input) {
 }
 
 function aplicarDadosNaTela(dados) {
-    if (dados.atributos) {
-        atributos = dados.atributos;
-
-        document.getElementById("valAgilidade").innerText = atributos["Agilidade"];
-        document.getElementById("valForca").innerText = atributos["Força"];
-        document.getElementById("valVigor").innerText = atributos["Vigor"];
-        document.getElementById("valAstucia").innerText = atributos["Astúcia"];
-        document.getElementById("valCarisma").innerText = atributos["Carisma"];
-        document.getElementById("valInteligencia").innerText = atributos["Inteligência"];
-    }
+    
     if (dados.nome) document.getElementById("nomeChar").value = dados.nome;
     if (dados.sobrenome) document.getElementById("sobrenomeChar").value = dados.sobrenome;
 
     if (dados.guilda) {
         document.getElementById("selectGuilda").value = dados.guilda;
         atualizarFicha(true);
+    }
+
+    if (dados.atributos) {
+        atributos = dados.atributos;
+
+        document.getElementById("valAgilidade").innerText = getValorFinalAtributo("Agilidade"); document.getElementById("valForca").innerText = atributos["Força"];
+        document.getElementById("valForca").innerText = getValorFinalAtributo("Força");
+        document.getElementById("valVigor").innerText = getValorFinalAtributo("Vigor");
+        document.getElementById("valAstucia").innerText = getValorFinalAtributo("Astúcia");
+        document.getElementById("valCarisma").innerText = getValorFinalAtributo("Carisma");
+        document.getElementById("valInteligencia").innerText = getValorFinalAtributo("Inteligência");
     }
 
     // Restaura Proficiências e atualiza visual
@@ -468,20 +490,21 @@ document.addEventListener("DOMContentLoaded", () => {
 function alterarAtributo(nome, delta) {
     let novoValor = atributos[nome] + delta;
 
-    if (novoValor < MIN_ATRIBUTO || novoValor > MAX_ATRIBUTO) return;
+    let minBase = MIN_ATRIBUTO;
+    let maxBase = MAX_ATRIBUTO;
+
+    // Se o atributo tem bônus de guilda
+    if (atributoBonusGuilda === nome) {
+        minBase = 2; // base mínima para final não ficar 1
+        maxBase = 4; // base máxima para final não passar de 5
+    }
+
+    if (novoValor < minBase || novoValor > maxBase) return;
 
     atributos[nome] = novoValor;
 
-    const idMap = {
-        "Agilidade": "valAgilidade",
-        "Força": "valForca",
-        "Vigor": "valVigor",
-        "Astúcia": "valAstucia",
-        "Carisma": "valCarisma",
-        "Inteligência": "valInteligencia"
-    };
-
-    document.getElementById(idMap[nome]).innerText = novoValor;
+    document.getElementById(idMap[nome]).innerText =
+        getValorFinalAtributo(nome);
 
     if (nome === "Vigor") {
         calcularVida();
@@ -489,3 +512,5 @@ function alterarAtributo(nome, delta) {
 
     salvarDados();
 }
+
+
