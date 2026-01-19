@@ -1,3 +1,8 @@
+// =================================================================================
+// ARQUIVO: banco_itens.js
+// Dados dos itens disponíveis para seleção na ficha de personagem
+// =================================================================================
+
 const bancoItens = {
     trajes: {
         "couro": { nome: "Traje de Couro", defesa: "Reduzir 3", esp: "Resistência (Frio), Vulnerável (Fogo)", tags: ["leve", "couro", "traje"] },

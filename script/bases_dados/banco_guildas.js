@@ -1,105 +1,21 @@
-
-
-const bancoItens = {
-    trajes: {
-        "couro": { nome: "Traje de Couro", defesa: "Reduzir 3", esp: "Resistência (Frio), Vulnerável (Fogo)", tags: ["leve", "couro", "traje"] },
-        "malha": { nome: "Traje de Malha", defesa: "Reduzir 3", esp: "Durável, Vulnerável (Elétrico)", tags: ["medio", "malha", "traje"] },
-        "placa": { nome: "Traje de Placa", defesa: "Reduzir 6", esp: "Durável, Vulnerável (Elétrico), Lento", tags: ["pesado", "placa", "traje"] },
-        "cavaleiro": { nome: "Traje de Cavaleiro", defesa: "Reduzir 9", esp: "Vulnerável (Elétrico), Lento", tags: ["pesado", "traje"] },
-        "gladiador": { nome: "Traje de Gladiador", defesa: "Reduzir 5", esp: "Espinhos, Vulnerável (Elétrico), Lento", tags: ["medio", "traje"] },
-        "nori": { nome: "Traje Nori", defesa: "Reduzir 3", tags: ["leve", "traje"] },
-        "sevilia": { nome: "Vestimenta Sevilia", defesa: "Reduzir 3", tags: ["leve", "traje"] }
-    },
-
-    armas: {
-        // === ESCUDOS ===
-        "escudo_peq": { nome: "Escudo Pequeno", dano: "2d6", def: "+1d6", tipo: "Impacto", esp: "uma mão, Arremesso 0-1", tags: ["uma mao", "arremesso", "escudo"] },
-        "escudo_gde": { nome: "Escudo Grande", dano: "2d6", def: "+2d6", tipo: "Impacto", esp: "uma mão, pesada 3", tags: ["uma mao", "escudo"] },
-        "escudo_duplo": { nome: "Escudo Duplo", dano: "2d6", def: "+3d6", tipo: "Impacto", esp: "duas mãos, pesada 3", tags: ["duas maos", "escudo"] },
-        "escudo_espinho": { nome: "Escudo de Espinhos", dano: "2d6", def: "+1d6", tipo: "Perfurante", esp: "uma mão, espinhos", tags: ["uma mao", "espinhos", "escudo"] },
-        "escudo_montado": { nome: "Escudo Montado", dano: "2d6", def: "+2d6", tipo: "Impacto", esp: "duas mãos, pesada 3", tags: ["duas maos", "escudo"] },
-
-        // === ARCOS E BALESTRAS ===
-        "arco_composto": { nome: "Arco Composto", dano: "Munição", alcance: "1-5", esp: "arma, duas mãos, recarga 1, manuseio +2", tipo: "distancia", tags: ["arma", "duas maos", "arco", "distancia"] },
-        "arco_recurvo": { nome: "Arco Recurvo", dano: "Munição", alcance: "1-5", esp: "arma, duas mãos, recarga 1, perfurante, cortante", tipo: "distancia", tags: ["arma", "duas maos", "arco", "distancia"] },
-        "arco_longo": { nome: "Arco Longo", dano: "Munição", alcance: "1-7", esp: "arma, duas mãos, recarga 1, manuseio -2", tipo: "distancia", tags: ["arma", "duas maos", "arco", "distancia"] },
-        "arco_infiltracao": { nome: "Arco de Infiltração", dano: "Munição", alcance: "0-4", esp: "sub-arma, duas mãos, recarga 1", tipo: "distancia", tags: ["sub-arma", "duas maos", "arco", "distancia"] },
-        "balestra": { nome: "Balestra", dano: "3d6", alcance: "0-3", esp: "arma, duas mãos, recarga 2, perfurar-5", tipo: "distancia", tags: ["arma", "duas maos", "balestra", "distancia"] },
-        "balestra_leve": { nome: "Balestra Leve", dano: "3d6", alcance: "0-3", esp: "arma, duas mãos, recarga 1, perfurar-2", tipo: "distancia", tags: ["arma", "duas maos", "balestra", "distancia"] },
-        "balestra_mini": { nome: "Balestra Mini", dano: "2d6", alcance: "0-2", esp: "sub-arma, uma mão, perfurar-2", tipo: "distancia", tags: ["sub-arma", "uma mao", "balestra", "distancia"] },
-        "cho_ko_nu": { nome: "Cho-Ko-Nu", dano: "2d6", alcance: "0-3", esp: "arma, duas mãos", tipo: "distancia", tags: ["arma", "duas maos", "balestra", "distancia"] },
-
-        // === AUXILIARES ===
-        "desarmado": { nome: "Ataque Desarmado", dano: "1d6", esp: "poder", tipo: "auxiliar", tags: ["desarmado", "auxiliar"] },
-        "luva": { nome: "Luva de Combate", dano: "+1d6", esp: "item, uma mão", tipo: "auxiliar", tags: ["item", "uma mao", "auxiliar", "luva"] },
-        "tekko": { nome: "Tekko-Kagi", dano: "2d6", esp: "sub-arma, uma mão, ágil", tipo: "auxiliar", tags: ["sub-arma", "uma mao", "agil", "auxiliar"] },
-        "pata": { nome: "Pata", dano: "2d6", esp: "arma, uma mão, poder, perfurar-2", tipo: "auxiliar", tags: ["arma", "uma mao", "perfurar", "auxiliar"] },
-        "katar": { nome: "Katar", dano: "2d6", esp: "arma, uma mão, ágil", tipo: "auxiliar", tags: ["arma", "uma mao", "agil", "auxiliar"] },
-        "chakram": { nome: "Chakram", dano: "2d6", esp: "sub-arma, uma mão, arremesso 0-1, perfurar-2, manuseio -2", tipo: "auxiliar", tags: ["sub-arma", "uma mao", "arremesso", "perfurar", "auxiliar"] },
-
-        // === CORRENTES ===
-        "chicote": { nome: "Chicote", dano: "2d6", esp: "arma, uma mão, alcance 0-1, crítico-preciso, ágil", tipo: "leve", tags: ["arma", "uma mao", "alcance", "agil", "leve"] },
-        "kusarigama": { nome: "Kusarigama", dano: "3d6/2d6", esp: "arma, duas mãos, ágil, alcance 0-2", tipo: "leve", tags: ["arma", "duas maos", "agil", "alcance", "leve"] },
-        "nunchaku": { nome: "Nunchaku", dano: "3d6", esp: "arma, uma mão, poder", tipo: "leve", tags: ["arma", "uma mao", "poder", "leve"] },
-        "batafuraikatto": { nome: "Batafuraikatto", dano: "2d6", esp: "arma, uma mão, alcance 0-1, cortante", tipo: "leve", tags: ["arma", "uma mao", "alcance", "cortante", "leve"] },
-        "kusari_fundo": { nome: "Kusari-Fundo", dano: "2d6", esp: "arma, uma mão, alcance 0-1, crítico-imobilizar, ágil", tipo: "leve", tags: ["arma", "uma mao", "alcance", "imobilizar", "agil", "leve"] },
-        "kyoketsu": { nome: "Kyoketsu-Shoge", dano: "3d6", esp: "arma, duas mãos, alcance 0-2, crítico-imobilizar, ágil", tipo: "leve", tags: ["arma", "duas maos", "alcance", "imobilizar", "agil", "leve"] },
-        "mangual": { nome: "Mangual", dano: "3d6", esp: "arma, uma mão, perfurar-3, manuseio -2, ágil", tipo: "pesada", tags: ["arma", "uma mao", "perfurar", "agil", "pesada"] },
-
-
-        // === ESPADAS ===
-        "espada_bastarda": { nome: "Espada Bastarda", dano: "3d6", esp: "arma, uma mão, poder", tipo: "leve", tags: ["arma", "uma mao", "poder", "espada", "leve"] },
-        "rapieira": { nome: "Rapieira", dano: "2d6", esp: "arma, uma mão, perfurar-5, manuseio +2, ágil", tipo: "leve", tags: ["arma", "uma mao", "perfurar", "agil", "espada", "leve"] },
-        "espada_borboleta": { nome: "Espada Borboleta", dano: "2d6/3d6", esp: "arma, uma mão (separadas) / duas mãos (unidas), ágil", tipo: "leve", tags: ["arma", "duas maos", "agil", "espada", "leve"] },
-        "lamina_dupla": { nome: "Lâmina Dupla", dano: "3d6+4", esp: "arma, duas mãos, crítico-desarme, poder", tipo: "leve", tags: ["arma", "duas maos", "poder", "espada", "leve"] },
-        "katana": { nome: "Katana", dano: "3d6", esp: "arma, duas mãos, cortante, ágil", tipo: "leve", tags: ["arma", "duas maos", "cortante", "agil", "espada", "leve"] },
-        "sakabato": { nome: "Sakabatō", dano: "2d6", esp: "arma, duas mãos, poder", tipo: "leve", tags: ["arma", "duas maos", "poder", "espada", "leve"] },
-        "montante": { nome: "Montante", dano: "4d6", esp: "arma, duas mãos, perfurar-2, pesada 3, poder", tipo: "pesada", tags: ["arma", "duas maos", "pesada", "poder", "espada", "pesada"] },
-        "ninjato": { nome: "Ninjato", dano: "2d6", esp: "arma, uma mão, cortante, ágil", tipo: "leve", tags: ["arma", "uma mao", "cortante", "agil", "espada", "leve"] },
-        "gladio": { nome: "Gládio", dano: "3d6", esp: "arma, uma mão, perfurar-3, poder", tipo: "leve", tags: ["arma", "uma mao", "perfurar", "poder", "espada", "leve"] },
-        "zweihander": { nome: "Zweihänder", dano: "5d6", esp: "arma, duas mãos, pesada 3, poder", tipo: "pesada", tags: ["arma", "duas maos", "pesada", "poder", "espada", "pesada"] },
-
-        // === FACAS ===
-        "adaga": { nome: "Adaga", dano: "2d6", esp: "sub-arma, uma mão, perfurar-4, ágil", tipo: "leve", tags: ["sub-arma", "uma mao", "perfurar", "agil", "adaga", "faca", "leve"] },
-        "faca_t": { nome: "Bolsa Faca-T", dano: "2d6", esp: "sub-arma, uma mão, perfurar-5 (ao lançar), arremesso 0-2, ágil", tipo: "leve", tags: ["sub-arma", "uma mao", "perfurar", "arremesso", "agil", "faca", "faca_t", "leve"] },
-        "kunai": { nome: "Bolsa Kunai", dano: "2d6", esp: "sub-arma, uma mão, perfurar-2, arremesso 0-2, ágil", tipo: "leve", tags: ["sub-arma", "uma mao", "perfurar", "arremesso", "agil", "faca", "leve"] },
-        "facao": { nome: "Facão", dano: "2d6", esp: "sub-arma, uma mão, poder, cortante", tipo: "leve", tags: ["sub-arma", "uma mao", "poder", "cortante", "faca", "leve"] },
-        "lamina_oculta": { nome: "Lâmina Oculta", dano: "2d6", esp: "sub-arma, uma mão, ágil", tipo: "leve", tags: ["sub-arma", "uma mao", "agil", "faca", "leve"] },
-        "sai": { nome: "Sai", dano: "2d6", esp: "sub-arma, uma mão, perfurar-3, crítico-desarme, ágil", tipo: "leve", tags: ["sub-arma", "uma mao", "perfurar", "desarme", "agil", "faca", "leve"] },
-        "punhal": { nome: "Punhal", dano: "2d6", esp: "sub-arma, uma mão, perfurar-4, ágil", tipo: "leve", tags: ["sub-arma", "uma mao", "perfurar", "agil", "faca", "leve"] },
-
-        // === HASTES ===
-        "alabarda": { nome: "Alabarda", dano: "4d6", esp: "arma, duas mãos, alcance 0-1, crítico-derrubar, poder", tipo: "pesada", tags: ["arma", "duas maos", "alcance", "poder", "haste", "pesada"] },
-        "bastao": { nome: "Bastão", dano: "2d6", esp: "arma, duas mãos, alcance 0-1, crítico-derrubar, poder", tipo: "leve", tags: ["arma", "duas maos", "alcance", "poder", "haste", "leve"] },
-        "berdiche": { nome: "Berdiche", dano: "3d6", esp: "arma, duas mãos, alcance 0-1, perfurar-5", tipo: "pesada", tags: ["arma", "duas maos", "alcance", "perfurar", "haste", "pesada"] },
-        "bisento": { nome: "Bisento", dano: "3d6", esp: "arma, duas mãos, alcance 0-1, cortante", tipo: "leve", tags: ["arma", "duas maos", "alcance", "cortante", "haste", "leve"] },
-        "foice": { nome: "Foice", dano: "2d6", esp: "arma, duas mãos, alcance 0-1, perfurar-5, ágil", tipo: "leve", tags: ["arma", "duas maos", "alcance", "agil", "haste", "leve"] },
-
-        // === LANÇAS ===
-        "dardo": { nome: "Dardo", dano: "2d6", esp: "arma, uma mão, alcance 0-1, perfurar-5, arremesso 4, ágil", tipo: "leve", tags: ["arma", "uma mao", "alcance", "arremesso", "agil", "lanca", "leve"] },
-        "dory": { nome: "Dory", dano: "3d6", esp: "arma, duas mãos, alcance 1, perfurar-3, arremesso 1-2, ágil", tipo: "leve", tags: ["arma", "duas maos", "alcance", "perfurar", "agil", "lanca", "leve"] },
-        "lanca_qiang": { nome: "Qiang", dano: "3d6", esp: "arma, duas mãos, alcance 0-1, perfurar-2, arremesso 1-2, ágil", tipo: "leve", tags: ["arma", "duas maos", "alcance", "agil", "lanca", "leve"] },
-        "justa": { nome: "Justa", dano: "4d6", esp: "arma, uma mão, pesada 4, manuseio -5, poder", tipo: "pesada", tags: ["arma", "uma mao", "poder", "lanca", "pesada"] },
-        "lanca_sarissa": { nome: "Sarissa", dano: "2d6", esp: "arma, duas mãos, alcance 2, perfurar-2, arremesso 2-3, poder", tipo: "pesada", tags: ["arma", "duas maos", "alcance_2", "poder", "lanca", "pesada"] },
-        "tridente": { nome: "Tridente", dano: "2d6", esp: "arma, uma mão, alcance 0-1, perfurar-5, arremesso 2, poder", tipo: "leve", tags: ["arma", "uma mao", "alcance", "perfurar", "poder", "lanca", "leve"] },
-
-        // === MACHADOS & MARTELOS ===
-        "maca": { nome: "Maça", dano: "3d6", esp: "arma, uma mão, perfurar-3, pesada 3, poder", tipo: "pesada", tags: ["arma", "uma mao", "perfurar", "pesada", "poder", "martelo"] },
-        "maca_lisa": { nome: "Maça Lisa", dano: "3d6", esp: "arma, uma mão, poder", tipo: "pesada", tags: ["arma", "uma mao", "poder", "martelo", "pesada"] },
-        "machadinha": { nome: "Machadinha", dano: "2d6", esp: "arma, uma mão, arremesso 0-1, poder", tipo: "leve", tags: ["arma", "uma mao", "arremesso", "poder", "machado", "leve"] },
-        "machado_batalha": { nome: "Machado de Batalha", dano: "4d6", esp: "arma, duas mãos, poder", tipo: "pesada", tags: ["arma", "duas maos", "poder", "machado", "pesada"] },
-        "marreta_guerra": { nome: "Marreta de Guerra", dano: "5d6", esp: "arma, duas mãos, poder, pesada 3, manuseio -2", tipo: "pesada", tags: ["arma", "duas maos", "poder", "martelo", "pesada"] },
-        "martelo": { nome: "Martelo", dano: "3d6", esp: "arma, uma mão, manuseio -2, pesada 3, poder", tipo: "pesada", tags: ["arma", "uma mao", "pesada", "poder", "martelo"] },
-
-    }
-};
+// ==================================================================================
+// ARQUIVO: banco_guildas.js
+// Dados das guildas disponíveis para seleção na ficha de personagem
+// ==================================================================================
 
 const dadosGuildas = {
     "ardor": {
         bonus: "Agilidade",
-        filtrosMaji: ["sinal", "base"], // Ardor usa Sinal (p. 35)
-        slotsArmas: [ { label: "Luva de Combate", item: "luva" }, { label: "Luva de Combate", item: "luva" }, { label: "Taca T", item: "faca_t" }, { label: "Taca T", item: "faca_t" } ],
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        filtrosMaji: ["sinal", "base"], 
+        slotsArmas: [
+            { label: "Luva de Combate", item: "luva" },
+            { label: "Luva de Combate", item: "luva" },
+            { label: "Taca T", item: "faca_t" },
+            { label: "Taca T", item: "faca_t" }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
         riqueza: "2",
         maji: "Maji Base de Sinal (Godama), Ataque Acelerado, duas Maji à sua escolha.",
         hab1: { nome: "Força e Esquiva", desc: "Use a força do inimigo contra ele. Ao realizar a reação Esquiva com sucesso contra um ataque a alcance 0, o inimigo recebe a Força dele em d6-dano." },
@@ -109,9 +25,13 @@ const dadosGuildas = {
     },
     "blugarony": {
         bonus: "Força",
-        filtrosMaji: ["sinal", "base"], // Blugarony usa Sinal (p. 36)
-        slotsArmas: [ { label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] } ],
-        slotsTraje: [{ label: "Traje de Malha", filtros: ["malha"] }],
+        filtrosMaji: ["sinal", "base"],
+        slotsArmas: [
+            { label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Malha", filtros: ["malha"] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Sinal (Godama), duas Maji de Sinal, duas Maji à sua escolha.",
         hab1: { nome: "Impacto Devastador", desc: "Ao realizar um ataque desarmado, pode gastar mais 1 Ação para causar +1d6-dano, além disso o alvo não pode escolher a reação Defesa." },
@@ -121,9 +41,15 @@ const dadosGuildas = {
     },
     "borealis": {
         bonus: "Agilidade",
-        filtrosMaji: ["fala", "vento", "base"], // Borealis usa Fala e Vento (p. 37)
-        slotsArmas: [ { label: "Espada Leve", filtros: ["espada", "leve"], modo: "E" }, { label: "Espada Leve", filtros: ["espada", "leve"], modo: "E" }, { label: "Balestra", filtros: ["balestra"] } ],
-        slotsTraje: [{ label: "Traje de Couro", filtros: ["couro"] }],
+        filtrosMaji: ["fala", "vento", "base"],
+        slotsArmas: [
+            { label: "Espada Leve", filtros: ["espada", "leve"], modo: "E" },
+            { label: "Espada Leve", filtros: ["espada", "leve"], modo: "E" },
+            { label: "Balestra", filtros: ["balestra"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", filtros: ["couro"] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Fala (Godai), duas Maji de Vento, uma Maji à sua escolha.",
         hab1: { nome: "Dupla Defensiva", desc: "Em Dupla Empunhadura ao usar a ação Postura Defensiva, recebe 1d6-defesa, ao invés de +2." },
@@ -133,9 +59,14 @@ const dadosGuildas = {
     },
     "canis": {
         bonus: "Agilidade",
-        filtrosMaji: ["fala", "sinal", "sol", "base"], // Canis usa Fala/Sinal e Sol (p. 38)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] }, { label: "Sub-Arma", filtros: ["sub-arma"] } ],
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        filtrosMaji: ["fala", "sinal", "sol", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
         riqueza: "1",
         maji: "Maji Base de Fala ou Sinal, duas Maji de Sol, duas Maji qualquer.",
         hab1: { nome: "Canis Louco", desc: "Com as mãos livres, você pode apoiar as duas no chão, aumentando seu deslocamento na ação Mover em Alcance 1. Você pode segurar armas de uma mão com a boca e armas de duas mãos quando tiver Força 3." },
@@ -145,9 +76,13 @@ const dadosGuildas = {
     },
     "duellante": {
         bonus: "Agilidade",
-        filtrosMaji: ["fala", "sinal", "escrita", "base"], // Duellante usa qualquer uma (p. 39)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] } ],
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        filtrosMaji: ["fala", "sinal", "escrita", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
         riqueza: "3",
         maji: "Quatro Maji à sua escolha.",
         hab1: { nome: "Iniciativa de Duelo", desc: "Sua Equipe vence a Iniciativa em caso de empate. Na cena de Maji-Du, recebe +2 em seu teste de Agilidade na Fase 1." },
@@ -157,8 +92,10 @@ const dadosGuildas = {
     },
     "eco": {
         bonus: "Inteligência",
-        filtrosMaji: ["escrita", "base"], // Eco usa Escrita (p. 40)
-        slotsArmas: [ { label: "Suportes", filtros: [] } ],
+        filtrosMaji: ["escrita", "base"],
+        slotsArmas: [
+            { label: "Suportes", filtros: [] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Escrita (Gidama), duas Maji de Escrita, duas Maji à sua escolha.",
         hab1: { nome: "Economia Florestal", desc: "Ao utilizar uma Maji Elemental de Controle, Defesa ou Suporte, você pode atingir +1-alvo ou dar +5-cura." },
@@ -168,9 +105,13 @@ const dadosGuildas = {
     },
     "royal": {
         bonus: "Inteligência",
-        filtrosMaji: ["escrita", "base"], // Royal usa Escrita (p. 41)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] } ],
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        filtrosMaji: ["escrita", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
         riqueza: "3",
         maji: "Maji Base de Escrita (Gidama), duas Maji de Escrita, duas Maji à sua escolha.",
         hab1: { nome: "Querido Grimório", desc: "Você possui um Grimório capaz de armazenar Maji, com limite de 5-espaços. Cada Maji de Escrita Pequena ocupa 1-espaço. Registre toda Maji escrita no Grimório." },
@@ -180,9 +121,14 @@ const dadosGuildas = {
     },
     "justica": {
         bonus: "Vigor",
-        filtrosMaji: ["fala", "base"], // Justiça usa Fala (p. 42)
-        slotsArmas: [ { label: "Espada Bastarda", item: "espada_bastarda" }, { label: "Escudo", filtros: ["escudo"] } ],
-        slotsTraje: [{ label: "Traje de Malha ou Placa", filtros: ["malha", "placa"] }],
+        filtrosMaji: ["fala", "base"],
+        slotsArmas: [
+            { label: "Espada Bastarda", item: "espada_bastarda" },
+            { label: "Escudo", filtros: ["escudo"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Malha ou Placa", filtros: ["malha", "placa"] }
+        ],
         riqueza: "2",
         maji: "Maji Base de Fala (Godai), quatro Maji à sua escolha.",
         hab1: { nome: "Código de Justiça", desc: "Justo sempre. Você tem +2 em todos os testes com armas. Porém você não pode atacar um alvo que esteja incapaz de lutar ou que não queira lutar. Apague essa habilidade de sua Ficha se quebrar uma regra. Pode adquirir essa habilidade novamente refazendo seus votos gastando EXP." },
@@ -192,9 +138,13 @@ const dadosGuildas = {
     },
     "nadyat": {
         bonus: "Vigor",
-        filtrosMaji: ["fala", "sinal", "escrita", "base"], // Nadyat usa qualquer (p. 43)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] } ],
-        slotsTraje: [{ label: "Traje de Couro ou Malha", filtros: ["couro", "malha"] }],
+        filtrosMaji: ["fala", "sinal", "escrita", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro ou Malha", filtros: ["couro", "malha"] }
+        ],
         riqueza: "1",
         maji: "Cinco Maji à sua escolha.",
         hab1: { nome: "Quebrando os Limites", desc: "Ao utilizar Superar Limites, seus benefícios são mantidos até o fim do seu próximo Turno de Equipe, assim como o efeito de ignorar as Penalidades." },
@@ -204,9 +154,19 @@ const dadosGuildas = {
     },
     "oberon": {
         bonus: "Vigor",
-        filtrosMaji: ["fala", "espaco", "base"], // Oberon usa Fala e Reequipar (Espaço) (p. 44)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] }, { label: "Arma", filtros: ["arma"] }, { label: "Arma", filtros: ["arma"] }, { label: "Sub-Arma", filtros: ["sub-arma"] }, { label: "Sub-Arma", filtros: ["sub-arma"] }, { label: "Sub-Arma", filtros: ["sub-arma"] } ],
-        slotsTraje: [ { label: "Traje", filtros: ["traje"] }, { label: "Traje", filtros: ["traje"] } ],
+        filtrosMaji: ["fala", "espaco", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje", filtros: ["traje"] },
+            { label: "Traje", filtros: ["traje"] }
+        ],
         riqueza: "2",
         maji: "Maji Base de Fala, Reequipar, duas Maji à sua escolha.",
         hab1: { nome: "Arsenal Oberon", desc: "A Maji que torna os implacáveis. Sua Maji Reequipar aumenta em +4 níveis." },
@@ -216,9 +176,14 @@ const dadosGuildas = {
     },
     "strike": {
         bonus: "Astúcia",
-        filtrosMaji: ["fala", "escrita", "base"], // Strike usa Fala ou Escrita (p. 45)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] }, { label: "Sub-Arma ou escudo", filtros: ["sub-arma", "escudo"] } ],
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        filtrosMaji: ["fala", "escrita", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Sub-Arma ou escudo", filtros: ["sub-arma", "escudo"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
         riqueza: "3",
         maji: "Maji Base de Fala ou Escrita, Três Maji à sua escolha.",
         hab1: { nome: "Estratégia", desc: "Durante uma cena crie um plano em colaboração com todos presentes. Cada um escolhe um atributo e como vai usa-la no plano, fornecendo +1d10 uma vez para executar o ato no plano na cena." },
@@ -228,8 +193,10 @@ const dadosGuildas = {
     },
     "tayport": {
         bonus: "Inteligência",
-        filtrosMaji: ["fala", "escrita", "espaco", "base"], // Tayport usa Fala/Escrita e Espaço (p. 46)
-        slotsArmas: [ { label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] } ],
+        filtrosMaji: ["fala", "escrita", "espaco", "base"],
+        slotsArmas: [
+            { label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Fala, Sem Obstáculos, Maji Base de Escrita, Teleporte, uma Maji.",
         hab1: { nome: "Em Todo Lugar", desc: "Você cria um portal estratégico. Ao conjurar Sem Obstáculos, pode alterar seu texto, para criar portais que conectam o caminho percorrido por você, onde os seres podem atravessar pelo portal até o final do Turno de Equipe." },
@@ -239,9 +206,13 @@ const dadosGuildas = {
     },
     "tigre": {
         bonus: "Agilidade",
-        filtrosMaji: ["fala", "base"], // Tigre usa Fala (p. 47)
-        slotsArmas: [ { label: "Espada ou Lança", filtros: ["espada", "lanca"] } ],
-        slotsTraje: [{ label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }],
+        filtrosMaji: ["fala", "base"],
+        slotsArmas: [
+            { label: "Espada ou Lança", filtros: ["espada", "lanca"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Fala, uma Maji de Fala, três Maji.",
         hab1: { nome: "Sangue de Tigre", desc: "Um guerreiro é temido por sua persistência. Enquanto estiver sofrendo da Primeira Penalidade, recebe reduzir 2. Aumenta para reduzir 5 enquanto estiver na Segunda Penalidade." },
@@ -251,9 +222,13 @@ const dadosGuildas = {
     },
     "yastrev": {
         bonus: "Força",
-        filtrosMaji: ["fala", "base"], // Yastrev usa Fala (p. 48)
-        slotsArmas: [ { label: "Espada ou Lança", filtros: ["espada", "lanca"] } ],
-        slotsTraje: [{ label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }],
+        filtrosMaji: ["fala", "base"],
+        slotsArmas: [
+            { label: "Espada ou Lança", filtros: ["espada", "lanca"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Fala, uma Maji de Fala, três Maji.",
         hab1: { nome: "Golpe Unico", desc: "Ao realizar um ataque desarmado com sucesso, pode gastar ações restantes para dar +1d6-dano por ação gasta." },
@@ -263,9 +238,13 @@ const dadosGuildas = {
     },
     "blusan": {
         bonus: "Inteligência",
-        filtrosMaji: ["sinal", "sol", "base"], // Blusan usa Sinal e Sol (p. 50)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] }],
-        slotsTraje: [ { label: "Traje de Couro ou Malha", filtros: ["couro", "malha"] }],
+        filtrosMaji: ["sinal", "sol", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro ou Malha", filtros: ["couro", "malha"] }
+        ],
         riqueza: "2",
         maji: "Maji Base de Sinal, duas Maji de Sol, duas Maji.",
         hab1: { nome: "Sol Azul", desc: "Ao utilizar uma Maji de Sol que causaria a condição Queimando, você pode escolher causar Atordoado do mesmo nível em vez disso. Nesse caso, a Maji não causa dano." },
@@ -275,9 +254,13 @@ const dadosGuildas = {
     },
     "exterminadores": {
         bonus: "Vigor",
-        filtrosMaji: ["fala", "base"], // Exterminadores usa Fala (p. 51)
-        slotsArmas: [ { label: "Arma Pesada", filtros: ["pesada"] } ],
-        slotsTraje: [{ label: "Traje de Malha", filtros: ["malha"] }],
+        filtrosMaji: ["fala", "base"],
+        slotsArmas: [
+            { label: "Arma Pesada", filtros: ["pesada"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Malha", filtros: ["malha"] }
+        ],
         riqueza: "1",
         maji: "Maji Base de Fala, Três Maji.",
         hab1: { nome: "Extermínio", desc: "Você treinou para rastrear e eliminar Vorulos com precisão. Sempre que fizer um teste para encontrar sinais da presença de seres, pode rolar com +1d10. Além disso, recebe +1d6-dano contra Vorulos em ataque com Arma Pesada." },
@@ -287,9 +270,14 @@ const dadosGuildas = {
     },
     "dancarinas": {
         bonus: "Agilidade",
-        filtrosMaji: ["fala", "base"], // Dançarinas usa Fala (p. 52)
-        slotsArmas: [ { label: "Pata", item: "pata" }, { label: "Pata", item: "pata" } ],
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        filtrosMaji: ["fala", "base"],
+        slotsArmas: [
+            { label: "Pata", item: "pata" },
+            { label: "Pata", item: "pata" }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
         riqueza: "2",
         maji: "Maji Base de Fala, Duas Maji de Fala, Uma Maji.",
         hab1: { nome: "Dança de Ataque", desc: "Enquanto estiver com uma pata em cada mão, se errar um ataque com pata, você pode realizar um ataque com a outra pata gastando 1 Ação neste Turno de Equipe." },
@@ -299,9 +287,14 @@ const dadosGuildas = {
     },
     "prime": {
         bonus: "Inteligência",
-        filtrosMaji: ["sinal", "base"], // Prime usa Sinal (p. 53)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] }, { label: "Sub-Arma", filtros: ["sub-arma"] } ],
-        slotsTraje: [{ label: "Traje de Malha", item: "malha" }],
+        filtrosMaji: ["sinal", "base"],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Sub-Arma", filtros: ["sub-arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Malha", item: "malha" }
+        ],
         riqueza: "2",
         maji: "Maji Base de Sinal, Três Maji.",
         hab1: { nome: "Reformular", desc: "Uma vez por cena, você pode aumentar em +1 nível (escolhendo uma evolução) uma de suas Maji, mas ela passa a custar o dobro de Pontos de Essência ao ser usada. Ao fim da cena, a Maji retorna ao seu nível normal." },
@@ -311,9 +304,14 @@ const dadosGuildas = {
     },
     "varbar": {
         bonus: "Força",
-        filtrosMaji: [], // Varbar NÃO usa Maji (p. 54)
-        slotsArmas: [ { label: "Arma", filtros: ["arma"] }, { label: "Arma", filtros: ["arma"] } ],
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
+        filtrosMaji: [],
+        slotsArmas: [
+            { label: "Arma", filtros: ["arma"] },
+            { label: "Arma", filtros: ["arma"] }
+        ],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
         riqueza: "2",
         maji: "Nenhuma (Varbar não usa Maji)",
         hab1: { nome: "Esforço Eterno", desc: "Você é imune aos efeitos causados pela 1ª Penalidade." },
@@ -323,9 +321,13 @@ const dadosGuildas = {
     },
     "runa": {
         bonus: "Inteligência",
-        filtrosMaji: ["escrita", "base"], // Runa usa Escrita (p. 55)
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
-        slotsOutros: [{ label: "Potes de Tinta", item: "tinta" }],
+        filtrosMaji: ["escrita", "base"],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
+        slotsOutros: [
+            { label: "Potes de Tinta", item: "tinta" }
+        ],
         riqueza: "2",
         maji: "Maji Base de Escrita, Duas Maji de Escrita, Duas Maji.",
         hab1: { nome: "Tinta Maji", desc: "Uma vez por cena, você pode transferir um tipo de essência para um pote. Cada pote tem 3 usos: gaste 1 uso para Maji de Escrita Pequena ou 2 usos para Maji de Escrita Grande. Ao usar a tinta, escolha uma Maji compatível com o tipo de essência contida no pote." },
@@ -335,9 +337,13 @@ const dadosGuildas = {
     },
     "ampulheta": {
         bonus: "Inteligência",
-        filtrosMaji: ["sinal", "escrita", "tempo", "base"], // Ampulheta usa Tempo (p. 60)
-        slotsTraje: [{ label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }],
-        slotsArmas: [{ label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }],
+        filtrosMaji: ["sinal", "escrita", "tempo", "base"],
+        slotsTraje: [
+            { label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }
+        ],
+        slotsArmas: [
+            { label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Sinal ou Escrita, Duas Maji de Tempo, Uma Maji.",
         hab1: { nome: "Flecha do Tempo", desc: "Ao usar Maji de Tempo, elas possuem +1 uso ou +1 rodada. Essa habilidade só funciona se o Ponto Cósmico do Campo estiver maior ou igual a 5." },
@@ -347,8 +353,10 @@ const dadosGuildas = {
     },
     "nebula": {
         bonus: "Inteligência",
-        filtrosMaji: ["escrita", "base"], // Nebula usa Escrita (p. 61)
-        slotsArmas: [{ label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }],
+        filtrosMaji: ["escrita", "base"],
+        slotsArmas: [
+            { label: "Arma ou Sub-Arma", filtros: ["arma", "sub-arma"] }
+        ],
         riqueza: "2",
         maji: "Maji Base de Escrita, Uma Maji de Escrita, Duas Maji.",
         hab1: { nome: "Escritas Sobre a Pele", desc: "Uma vez por cena, você pode colocar uma Maji de Escrita em sua pele. Seu corpo possui 7 espaços (braços, pernas, torso e cabeça). Maji de Escrita Pequena ocupa 1 espaço, enquanto Grande ocupa 2 espaços." },
@@ -358,9 +366,14 @@ const dadosGuildas = {
     },
     "prizark": {
         bonus: "Agilidade",
-        filtrosMaji: ["fala", "base"], // Prizark usa Fala (p. 62)
-        slotsTraje: [{ label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }],
-        slotsArmas: [ { label: "Arma de Corrente", filtros: ["corrente"] }, { label: "Arma de Corrente", filtros: ["corrente"] } ],
+        filtrosMaji: ["fala", "base"],
+        slotsTraje: [
+            { label: "Traje de Malha ou Couro", filtros: ["malha", "couro"] }
+        ],
+        slotsArmas: [
+            { label: "Arma de Corrente", filtros: ["corrente"] },
+            { label: "Arma de Corrente", filtros: ["corrente"] }
+        ],
         riqueza: "3",
         maji: "Maji Base de Fala, Quatro Maji.",
         hab1: { nome: "Empurrão Libertador", desc: "Ao usar a Manobra Crítica Imobilizar com armas de correntes, você pode gastar 1 Ação para mover o alvo na área até o alcance máximo da arma." },
@@ -370,55 +383,18 @@ const dadosGuildas = {
     },
     "sacrifice": {
         bonus: "Agilidade",
-        filtrosMaji: ["fala", "base"], // Sacrifice usa Fala (p. 63)
-        slotsTraje: [{ label: "Traje de Couro", item: "couro" }],
-        slotsArmas: [{ label: "Faca, Haste ou Espada", filtros: ["faca", "haste", "espada"] }],
+        filtrosMaji: ["fala", "base"],
+        slotsTraje: [
+            { label: "Traje de Couro", item: "couro" }
+        ],
+        slotsArmas: [
+            { label: "Faca, Haste ou Espada", filtros: ["faca", "haste", "espada"] }
+        ],
         riqueza: "2",
         maji: "Maji Base de Fala, Três Maji.",
         hab1: { nome: "Sangue Essencial", desc: "Ao usar uma Maji Elemental, você pode se cortar, recebendo 2 de dano por nível da Maji que não pode reduzir (apenas com Ritual de Poder), usando seu próprio sangue como Ponto de Essência." },
         hab2: { nome: "Ritual de Poder", desc: "Uma vez por dia, durante 1 cena, você pode realizar um ritual onde uma criatura é sacrificada. Um número de vezes igual ao nível da criatura +1, você pode reduzir 3 de dano.", req: "Astúcia 3" },
         hab3: { nome: "Pacto de Vida", desc: "Uma vez por dia, você pode curar PV igual à sua primeira Caixa de PV ao custo de 2 Pontos Elementais.", req: "Ritual de Poder, Inteligência 2" },
         hab4: { nome: "Poder Sangrento", desc: "Sempre que usar a habilidade Sangue Essencial, a Maji conjurada pode receber +1 rodada, +1 uso ou +1d6 de dano, à sua escolha.", req: "Sangue Essencial, Astúcia 2" }
-    }
-};
-
-
-// --- PROFICIÊNCIA ---
-const regrasProficiencia = {
-    "Agilidade": {
-        1: "Ao usar Mover, pode se deslocar +1 alcance.",
-        2: "+1d6 no dano de Equipamentos que usem Agilidade.",
-        3: "Quando falhar em Esquiva, pode gastar 1 Ação para rolar Esquiva novamente.",
-        4: "Ao falhar no DA de Esquiva de uma Maji com dano em área que afeta Todo Alvo, recebe metade do dano após reduzir."
-    },
-    "Força": {
-        1: "Ganha +5 em seus limites de Espaço de carga.",
-        2: "Pode usar Derrubar com 1 Crítico, se usar armas de Força.",
-        3: "+1d6 no dano de Equipamentos que usem Força.",
-        4: "Se causa 20 ou mais de dano em um ataque, tem perfurar 5."
-    },
-    // "Vigor": {
-    //     1: "Suas Caixas de PV passam para: 20 | 40 | 60",
-    //     2: "Suas Caixas de PV passam para: 30 | 60 | 90",
-    //     3: "Suas Caixas de PV passam para: 40 | 80 | 120",
-    //     4: "Suas Caixas de PV passam para: 50 | 100 | 150"
-    // },
-    "Astúcia": {
-        1: "Pode gastar 1 Ação para remover a condição Desorientado.",
-        2: "Uma vez por Cena, pode improvisar um item simples (criar tocha, kit médico).",
-        3: "Sempre sabe o valor de Vida do oponente.",
-        4: "Quando tiver dois ou mais Riscos, pode anular 1 Risco." 
-    },
-    "Carisma": {
-        1: "Toda cena, pode escolher um alvo e ter +1 Sinergia um com o outro até o fim da cena.",
-        2: "Ao receber a condição Medo 2, ela se torna Medo 1.",
-        3: "O bônus de +1 Sinergia da Proficiência 1 se torna +2.",
-        4: "Gaste 1 Ação para que um aliado a Alcance 0-2, remova Medo ou Desorientado."
-    },
-    "Inteligência": {
-        1: "Seus Pontos Reserva de Maji passam para 2 em todo tipo.",
-        2: "Pode fazer Pesquisa como uma ação de Descanso Curto.",
-        3: "O limite de nível de uma Maji passa de 10 para 15.",
-        4: "Uma vez por cena, pode fazer um teste de qualquer outro Atributo usando Inteligência."
     }
 };

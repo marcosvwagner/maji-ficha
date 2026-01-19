@@ -1,11 +1,20 @@
+<!--
+==================================================================================
+Autor: Marcos V. Wagner
+Ano: 2026
+Projeto: Ficha de Personagem para MAJI RPG
+================================================================================== -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <title>Ficha MAJI RPG</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="author" content="Marcos V. Wagner">
+    <link rel="stylesheet" href="style/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="1.0.0">
+    <meta name="last-modified" content="2026-01-19">
 </head>
 
 <body>
@@ -241,10 +250,13 @@
         </div>
 
         <div class="section">
-            <h2>4. Inventário e Equipamento</h2>
-            <label>Maji (Magias Conhecidas):</label>
-            <div id="containerMajis" class="cols-equip" style="margin-bottom: 15px;"></div> <textarea id="majiInicial"
-                rows="3" readonly></textarea>
+            <h2>4. Majis</h2>
+            <label>Majis iniciais:</label>
+            <textarea id="majiInicial" rows="3" readonly></textarea>
+            <div id="containerMajis" class="cols-equip" style="margin-bottom: 15px;"></div>
+
+            <h2>5. Inventário e Equipamento</h2>
+
 
             <div class="cols-equip">
                 <div id="containerArmas"></div>
@@ -268,12 +280,13 @@
         </div>
     </div>
 
+
     <!-- <script src="dados.js"></script> -->
-    <script src="banco_maji.js"></script>
-    <script src="banco_guildas.js"></script>
-    <script src="banco_itens.js"></script>
-    <script src="banco_proficiencias.js"></script>
-    <script src="script.js"></script>
+    <script src="script/bases_dados/banco_maji.js"></script>
+    <script src="script/bases_dados/banco_guildas.js"></script>
+    <script src="script/bases_dados/banco_itens.js"></script>
+    <script src="script/bases_dados/banco_proficiencias.js"></script>
+    <script src="script/script.js"></script>
 
 
 

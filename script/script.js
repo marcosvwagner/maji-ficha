@@ -499,7 +499,7 @@ function alterarAtributo(nome, delta) {
 
     // Se o atributo tem bônus de guilda
     if (atributoBonusGuilda === nome) {
-        minBase = 2; // base mínima para final não ficar 1
+        minBase = 1; // base mínima para final não ficar 1
         maxBase = 4; // base máxima para final não passar de 5
     }
 
@@ -519,10 +519,9 @@ function alterarAtributo(nome, delta) {
 
 function gerarSlotsMaji(guilda) {
     const container = document.getElementById("containerMajis");
-    if(!container) return; // Segurança
+    if(!container) return; 
     container.innerHTML = ""; 
 
-    // Define 4 slots de magia padrão
     const numSlots = 4; 
 
     for (let i = 0; i < numSlots; i++) {
@@ -542,56 +541,35 @@ function gerarSlotsMaji(guilda) {
         defaultOpt.text = "- Selecione -";
         select.add(defaultOpt);
 
-        // LÓGICA DE FILTRO INTELIGENTE
-        if (guilda && guilda.filtrosMaji && guilda.filtrosMaji.length > 0) {
-            // Itera sobre as 3 grandes formas (fala, escrita, sinal) + base
-            const formas = ["base", "fala", "escrita", "sinal"];
+        // LÓGICA ATUALIZADA:
+        // Verifica se a guilda é "sem magia" (ex: Varbar com lista vazia [])
+        // Se não tiver lista vazia explicitamente, libera TUDO.
+        let permiteMagia = true;
+        if (guilda && guilda.filtrosMaji && guilda.filtrosMaji.length === 0) {
+            permiteMagia = false;
+        }
+
+        if (permiteMagia) {
+            // Itera sobre TODAS as formas do banco para mostrar tudo
+            const formas = ["base", "fala", "sinal", "escrita"];
             
             formas.forEach(formaKey => {
                 if (bancoMajis[formaKey]) {
-                    // Verifica se a guilda permite esta FORMA
-                    // Ex: se filtro tem "fala", libera tudo de fala.
-                    // Se filtro tem "vento", libera magias de vento dentro de qualquer forma permitida?
-                    // Regra simplificada: Se o filtro tem a FORMA (ex: "fala"), mostra todas da forma.
-                    // Se o filtro tem ELEMENTO (ex: "vento"), mostra magias desse elemento em todas as formas.
+                    const group = document.createElement("optgroup");
+                    group.label = formaKey.toUpperCase(); // BASE, FALA, SINAL...
                     
-                    const magiasPermitidas = [];
-                    
+                    // Adiciona todas as magias daquela categoria
                     for (const [key, magia] of Object.entries(bancoMajis[formaKey])) {
-                        let permitido = false;
-                        
-                        // 1. Permite se a guilda tem a FORMA (ex: "fala")
-                        if (guilda.filtrosMaji.includes(formaKey)) {
-                            permitido = true;
-                        }
-                        // 2. Permite se a guilda tem o ELEMENTO/SUBTIPO (ex: "vento", "sol")
-                        // Nota: Magia precisa ter subtipo definido
-                        else if (magia.subtipo && guilda.filtrosMaji.includes(magia.subtipo.toLowerCase())) {
-                            permitido = true;
-                        }
-                        
-                        if (permitido) {
-                            magiasPermitidas.push({key, nome: magia.nome});
-                        }
+                        const opt = document.createElement("option");
+                        opt.value = key;
+                        opt.text = magia.nome; // Ex: "Bola de Fogo"
+                        group.appendChild(opt);
                     }
-
-                    // Se encontrou magias para esta forma, cria o grupo no select
-                    if (magiasPermitidas.length > 0) {
-                        const group = document.createElement("optgroup");
-                        group.label = formaKey.toUpperCase(); // FALA, ESCRITA, ETC
-                        
-                        magiasPermitidas.forEach(m => {
-                            const opt = document.createElement("option");
-                            opt.value = m.key;
-                            opt.text = m.nome;
-                            group.appendChild(opt);
-                        });
-                        select.add(group);
-                    }
+                    select.add(group);
                 }
             });
         } else {
-            // Se não tiver filtro (Varbar), deixa vazio ou desabilita
+            // Bloqueia para guildas sem magia (Varbar)
             const opt = document.createElement("option");
             opt.text = "Nenhuma Maji disponível";
             select.add(opt);
@@ -604,12 +582,10 @@ function gerarSlotsMaji(guilda) {
         });
 
         wrapper.appendChild(select);
-
         const detailsDiv = document.createElement("div");
         detailsDiv.className = "item-stats";
         detailsDiv.id = `det_maji_${i}`;
         wrapper.appendChild(detailsDiv);
-
         container.appendChild(wrapper);
     }
 }
@@ -629,7 +605,10 @@ function atualizarDetalheMaji(selectElement) {
     }
 
     if (magiaEncontrada) {
-        div.innerHTML = `<strong>Custo:</strong> ${magiaEncontrada.custo} | <strong>Forma:</strong> ${magiaEncontrada.forma}<br><em>${magiaEncontrada.desc}</em>`;
+        // Exibe: Custo | Forma | Tipo (Subtipo)
+        div.innerHTML = `<strong>Custo:</strong> ${magiaEncontrada.custo} | <strong>Forma:</strong> ${magiaEncontrada.forma} 
+        <br> <strong>Tipo:</strong> ${magiaEncontrada.tipo} (${magiaEncontrada.subtipo})
+        <br><em>${magiaEncontrada.desc}</em>`;
     } else {
         div.innerText = "";
     }
