@@ -242,8 +242,9 @@
 
         <div class="section">
             <h2>4. Inventário e Equipamento</h2>
-            <label>Maji Iniciais:</label>
-            <textarea id="majiInicial" rows="3" readonly></textarea>
+            <label>Maji (Magias Conhecidas):</label>
+            <div id="containerMajis" class="cols-equip" style="margin-bottom: 15px;"></div> <textarea id="majiInicial"
+                rows="3" readonly></textarea>
 
             <div class="cols-equip">
                 <div id="containerArmas"></div>
@@ -267,8 +268,15 @@
         </div>
     </div>
 
-    <script src="dados.js"></script>
+    <!-- <script src="dados.js"></script> -->
+    <script src="banco_maji.js"></script>
+    <script src="banco_guildas.js"></script>
+    <script src="banco_itens.js"></script>
+    <script src="banco_proficiencias.js"></script>
     <script src="script.js"></script>
+
+
+
 </body>
 
 </html>

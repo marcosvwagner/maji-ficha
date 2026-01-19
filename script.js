@@ -275,6 +275,7 @@ function atualizarFicha(isLoading = false) {
                 setStatusHabilidade(i, false);
             }
         }
+        gerarSlotsMaji(g);
 
     } else {
         textoBonus.innerText = "Bônus: Nenhum";
@@ -301,6 +302,8 @@ function atualizarFicha(isLoading = false) {
     // Calcula vida baseado na proficiência global
     calcularVida();
     if (!isLoading) salvarDados();
+
+    
 }
 
 function calcularVida() {
@@ -428,7 +431,7 @@ function aplicarDadosNaTela(dados) {
     if (dados.atributos) {
         atributos = dados.atributos;
 
-        document.getElementById("valAgilidade").innerText = getValorFinalAtributo("Agilidade"); document.getElementById("valForca").innerText = atributos["Força"];
+        document.getElementById("valAgilidade").innerText = getValorFinalAtributo("Agilidade");
         document.getElementById("valForca").innerText = getValorFinalAtributo("Força");
         document.getElementById("valVigor").innerText = getValorFinalAtributo("Vigor");
         document.getElementById("valAstucia").innerText = getValorFinalAtributo("Astúcia");
@@ -463,6 +466,7 @@ function aplicarDadosNaTela(dados) {
                 el.value = valor;
                 if (id.includes("arma")) atualizarDetalheDinâmico(el, bancoItens.armas);
                 if (id.includes("traje")) atualizarDetalheDinâmico(el, bancoItens.trajes);
+                if (id.includes("maji")) atualizarDetalheMaji(el);
             }
         }
     }
@@ -513,4 +517,120 @@ function alterarAtributo(nome, delta) {
     salvarDados();
 }
 
+function gerarSlotsMaji(guilda) {
+    const container = document.getElementById("containerMajis");
+    if(!container) return; // Segurança
+    container.innerHTML = ""; 
 
+    // Define 4 slots de magia padrão
+    const numSlots = 4; 
+
+    for (let i = 0; i < numSlots; i++) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "equip-area";
+
+        const label = document.createElement("label");
+        label.innerText = `Maji ${i + 1}:`;
+        wrapper.appendChild(label);
+
+        const select = document.createElement("select");
+        select.className = "equip-select";
+        select.id = `dyn_maji_${i}`;
+        
+        const defaultOpt = document.createElement("option");
+        defaultOpt.value = "";
+        defaultOpt.text = "- Selecione -";
+        select.add(defaultOpt);
+
+        // LÓGICA DE FILTRO INTELIGENTE
+        if (guilda && guilda.filtrosMaji && guilda.filtrosMaji.length > 0) {
+            // Itera sobre as 3 grandes formas (fala, escrita, sinal) + base
+            const formas = ["base", "fala", "escrita", "sinal"];
+            
+            formas.forEach(formaKey => {
+                if (bancoMajis[formaKey]) {
+                    // Verifica se a guilda permite esta FORMA
+                    // Ex: se filtro tem "fala", libera tudo de fala.
+                    // Se filtro tem "vento", libera magias de vento dentro de qualquer forma permitida?
+                    // Regra simplificada: Se o filtro tem a FORMA (ex: "fala"), mostra todas da forma.
+                    // Se o filtro tem ELEMENTO (ex: "vento"), mostra magias desse elemento em todas as formas.
+                    
+                    const magiasPermitidas = [];
+                    
+                    for (const [key, magia] of Object.entries(bancoMajis[formaKey])) {
+                        let permitido = false;
+                        
+                        // 1. Permite se a guilda tem a FORMA (ex: "fala")
+                        if (guilda.filtrosMaji.includes(formaKey)) {
+                            permitido = true;
+                        }
+                        // 2. Permite se a guilda tem o ELEMENTO/SUBTIPO (ex: "vento", "sol")
+                        // Nota: Magia precisa ter subtipo definido
+                        else if (magia.subtipo && guilda.filtrosMaji.includes(magia.subtipo.toLowerCase())) {
+                            permitido = true;
+                        }
+                        
+                        if (permitido) {
+                            magiasPermitidas.push({key, nome: magia.nome});
+                        }
+                    }
+
+                    // Se encontrou magias para esta forma, cria o grupo no select
+                    if (magiasPermitidas.length > 0) {
+                        const group = document.createElement("optgroup");
+                        group.label = formaKey.toUpperCase(); // FALA, ESCRITA, ETC
+                        
+                        magiasPermitidas.forEach(m => {
+                            const opt = document.createElement("option");
+                            opt.value = m.key;
+                            opt.text = m.nome;
+                            group.appendChild(opt);
+                        });
+                        select.add(group);
+                    }
+                }
+            });
+        } else {
+            // Se não tiver filtro (Varbar), deixa vazio ou desabilita
+            const opt = document.createElement("option");
+            opt.text = "Nenhuma Maji disponível";
+            select.add(opt);
+            select.disabled = true;
+        }
+
+        select.addEventListener('change', function() {
+            atualizarDetalheMaji(this);
+            salvarDados();
+        });
+
+        wrapper.appendChild(select);
+
+        const detailsDiv = document.createElement("div");
+        detailsDiv.className = "item-stats";
+        detailsDiv.id = `det_maji_${i}`;
+        wrapper.appendChild(detailsDiv);
+
+        container.appendChild(wrapper);
+    }
+}
+
+function atualizarDetalheMaji(selectElement) {
+    const key = selectElement.value;
+    const detailId = selectElement.id.replace('dyn_', 'det_');
+    const div = document.getElementById(detailId);
+    
+    // Procura a magia em todas as categorias do bancoMajis
+    let magiaEncontrada = null;
+    for (const cat in bancoMajis) {
+        if (bancoMajis[cat][key]) {
+            magiaEncontrada = bancoMajis[cat][key];
+            break;
+        }
+    }
+
+    if (magiaEncontrada) {
+        div.innerHTML = `<strong>Custo:</strong> ${magiaEncontrada.custo} | <strong>Forma:</strong> ${magiaEncontrada.forma}<br><em>${magiaEncontrada.desc}</em>`;
+    } else {
+        div.innerText = "";
+    }
+}
