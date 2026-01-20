@@ -39,7 +39,7 @@ const bancoMajis = {
         "quente_sol": { nome: "Quente como o Sol", forma: "Fala", tipo: "Celeste", subtipo: "Sol", custo: "1 ação", desc: "1-alvo a alcance 0 recebe 3-usos. Ao ser atacado a alcance 0, gasta para dar 1d6 fogo e Queimando 1 no atacante." },
 
         // Celeste: Lua
-        "nevoeiro_ilusoes": { nome: "Nevoeiro de Ilusões", forma: "Fala", tipo: "Celeste", subtipo: "Lua", custo: "1 ação", desc: "Fumaça em alcance 0-1. Todos dentro fazem Astúcia (DA 6) ou não movem. Ataques lá dentro têm -2." },
+        "nevoeiro_ilusoes": { nome: "Nevoeiro de Ilusões", forma: "Fala", tipo: "Celeste", subtipo: "Lua", custo: "1 ação", desc: "Fumaça em alcance 0-1. Todos dentro fazem Sentidos (DA 6) ou não movem. Ataques lá dentro têm -2." },
         "falsa_coragem": { nome: "Falsa Coragem", forma: "Fala", tipo: "Celeste", subtipo: "Lua", custo: "1 ação", desc: "1-alvo a alcance 0 não pode Esquivar, mas ignora Penalidade 1 e Medo por 2 rodadas." },
         "efeito_espelho": { nome: "Efeito Espelho", forma: "Fala", tipo: "Celeste", subtipo: "Lua", custo: "1 ação", desc: "Cria clone ilusório. Se for atacado, role 1d10: Par=Clone atingido, Ímpar=Você atingido." },
 

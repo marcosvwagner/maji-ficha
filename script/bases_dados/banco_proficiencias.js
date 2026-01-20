@@ -17,7 +17,7 @@ const regrasProficiencia = {
     //     3: "Suas Caixas de PV passam para: 40 | 80 | 120",
     //     4: "Suas Caixas de PV passam para: 50 | 100 | 150"
     // },
-    "Astúcia": {
+    "Sentidos": {
         1: "Pode gastar 1 Ação para remover a condição Desorientado.",
         2: "Uma vez por Cena, pode improvisar um item simples (criar tocha, kit médico).",
         3: "Sempre sabe o valor de Vida do oponente.",
@@ -29,10 +29,10 @@ const regrasProficiencia = {
         3: "O bônus de +1 Sinergia da Proficiência 1 se torna +2.",
         4: "Gaste 1 Ação para que um aliado a Alcance 0-2, remova Medo ou Desorientado."
     },
-    "Inteligência": {
+    "Estudos": {
         1: "Seus Pontos Reserva de Maji passam para 2 em todo tipo.",
         2: "Pode fazer Pesquisa como uma ação de Descanso Curto.",
         3: "O limite de nível de uma Maji passa de 10 para 15.",
-        4: "Uma vez por cena, pode fazer um teste de qualquer outro Atributo usando Inteligência."
+        4: "Uma vez por cena, pode fazer um teste de qualquer outro Atributo usando Estudos."
     }
 };

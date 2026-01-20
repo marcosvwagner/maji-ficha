@@ -13,36 +13,36 @@ let proficiencias = {
     "Agilidade": 0,
     "Força": 0,
     "Vigor": 0,
-    "Astúcia": 0,
+    "Sentidos": 0,
     "Carisma": 0,
-    "Inteligência": 0
+    "Estudos": 0
 };
 
 let atributos = {
     "Agilidade": 1,
     "Força": 1,
     "Vigor": 1,
-    "Astúcia": 1,
+    "Sentidos": 1,
     "Carisma": 1,
-    "Inteligência": 1
+    "Estudos": 1
 };
 
 let bonusGuilda = {
     "Agilidade": 0,
     "Força": 0,
     "Vigor": 0,
-    "Astúcia": 0,
+    "Sentidos": 0,
     "Carisma": 0,
-    "Inteligência": 0
+    "Estudos": 0
 };
 
 const idMap = {
     "Agilidade": "valAgilidade",
     "Força": "valForca",
     "Vigor": "valVigor",
-    "Astúcia": "valAstucia",
+    "Sentidos": "valsentidos",
     "Carisma": "valCarisma",
-    "Inteligência": "valInteligencia"
+    "Estudos": "valestudos"
 };
 
 
@@ -246,7 +246,7 @@ function atualizarFicha(isLoading = false) {
     const textoBonus = document.getElementById("textoBonusAtributo");
 
 
-    atributos = { "Agilidade": 1, "Força": 1, "Vigor": 1, "Astúcia": 1, "Carisma": 1, "Inteligência": 1 };
+    atributos = { "Agilidade": 1, "Força": 1, "Vigor": 1, "Sentidos": 1, "Carisma": 1, "Estudos": 1 };
     if (dadosGuildas[guildaSelecionada]) {
         const g = dadosGuildas[guildaSelecionada];
 
@@ -295,9 +295,9 @@ function atualizarFicha(isLoading = false) {
     document.getElementById("valAgilidade").innerText = getValorFinalAtributo("Agilidade");
     document.getElementById("valForca").innerText = getValorFinalAtributo("Força");
     document.getElementById("valVigor").innerText = getValorFinalAtributo("Vigor");
-    document.getElementById("valAstucia").innerText = getValorFinalAtributo("Astúcia");
+    document.getElementById("valsentidos").innerText = getValorFinalAtributo("Sentidos");
     document.getElementById("valCarisma").innerText = getValorFinalAtributo("Carisma");
-    document.getElementById("valInteligencia").innerText = getValorFinalAtributo("Inteligência");
+    document.getElementById("valestudos").innerText = getValorFinalAtributo("Estudos");
 
     // Calcula vida baseado na proficiência global
     calcularVida();
@@ -434,9 +434,9 @@ function aplicarDadosNaTela(dados) {
         document.getElementById("valAgilidade").innerText = getValorFinalAtributo("Agilidade");
         document.getElementById("valForca").innerText = getValorFinalAtributo("Força");
         document.getElementById("valVigor").innerText = getValorFinalAtributo("Vigor");
-        document.getElementById("valAstucia").innerText = getValorFinalAtributo("Astúcia");
+        document.getElementById("valsentidos").innerText = getValorFinalAtributo("Sentidos");
         document.getElementById("valCarisma").innerText = getValorFinalAtributo("Carisma");
-        document.getElementById("valInteligencia").innerText = getValorFinalAtributo("Inteligência");
+        document.getElementById("valestudos").innerText = getValorFinalAtributo("Estudos");
     }
 
     // Restaura Proficiências e atualiza visual
