@@ -6,7 +6,7 @@
 const dadosGuildas = {
     "ardor": {
         bonus: "Agilidade",
-        filtrosMaji: ["sinal", "base"], 
+        filtrosMaji: ["sinal", "base"],
         slotsArmas: [
             { label: "Luva de Combate", item: "luva" },
             { label: "Luva de Combate", item: "luva" },
@@ -186,10 +186,10 @@ const dadosGuildas = {
         ],
         riqueza: "3",
         maji: "Maji Base de Fala, Sopro de Gelo, uma Maji, duas Maji de Chuva.",
-        hab1: { nome: "Caçada de Cristal", desc: "Enquanto estiver com pelo menos 2 cargas (■■) de Congelado, você pode ficar oculto. Inimigos são considerados Cegos contra você até você atacar.", req: "Sentidos 1" },
-        hab2: { nome: "Defesa de Gelo", desc: "Cada carga de Congelado concede Reduzir 2. Pode gastar 1 Ponto de Essência Elemental para receber Congelado (■)." },
+        hab1: { nome: "Defesa de Gelo", desc: "Cada carga de Congelado concede Reduzir 2. Pode gastar 1 Ponto de Essência Elemental para receber Congelado." },
+        hab2: { nome: "Caçada de Cristal", desc: "Enquanto estiver com pelo menos 2 cargas de Congelado, você pode ficar oculto. Inimigos são considerados Cegos contra você até você atacar.", req: "Sentidos 1" },
         hab3: { nome: "Domínio do Inverno", desc: "Uma vez por cena, gaste 1 Ação para criar nevada. Enquanto houver 2 Pontos Elementais no Campo, todo efeito de Congelado causa +1 carga.", req: "Estudos 3" },
-        hab4: { nome: "Sangue de Geada", desc: "A condição Congelado em você precisa de 4 cargas (■■■■) para ativar.", req: "Vigor 1" }
+        hab4: { nome: "Sangue de Geada", desc: "A condição Congelado em você precisa de 4 cargas para ativar.", req: "Vigor 1" }
     },
     "strike": {
         bonus: "Sentidos",
@@ -315,9 +315,9 @@ const dadosGuildas = {
         ],
         riqueza: "2",
         maji: "Quatro Maji.",
-        hab1: { nome: "Forte Companheiro", desc: "Você pode adquirir uma Criatura de Nível de Ameaça 2. Se preferir, pode melhorar a ficha de uma Criatura de NA 0 ou 1.", req: "Carisma 1" },
-        hab2: { nome: "Grande Família", desc: "Você pode ter dois companheiros por meio da Habilidade Laço de Amizade.", req: "Carisma 4" },
-        hab3: { nome: "Laço de Amizade", desc: "Escolha uma Criatura de Nível de Ameaça 0 ou 1 para te seguir. Você controla as 3 Ações dela no Turno de Equipe." },
+        hab1: { nome: "Laço de Amizade", desc: "Escolha uma Criatura de Nível de Ameaça 0 ou 1 para te seguir. Você controla as 3 Ações dela no Turno de Equipe." },
+        hab2: { nome: "Forte Companheiro", desc: "Você pode adquirir uma Criatura de Nível de Ameaça 2. Se preferir, pode melhorar a ficha de uma Criatura de NA 0 ou 1.", req: "Carisma 1" },
+        hab3: { nome: "Grande Família", desc: "Você pode ter dois companheiros por meio da Habilidade Laço de Amizade.", req: "Carisma 4" },
         hab4: { nome: "Protetor Instintivo", desc: "Enquanto você ou sua Criatura estiver com metade da vida ou menos, o outro recebe +1d6 em todo Dano (exceto por Maji) e reduzir +2 ao usar a reação Defesa.", req: "Carisma 1" }
     },
     "dancarinas": {
@@ -412,10 +412,10 @@ const dadosGuildas = {
         ],
         riqueza: "3",
         maji: "Maji Base de Sinal, três Maji.",
-        hab1: { nome: "Costura Armada", desc: "Suas Armas passam a fazer parte do seu corpo. Você não pode sofrer a manobra Desarme.", req: "Sentidos 1" },
-        hab2: { nome: "Estourar Ponto", desc: "Uma vez por rodada, quando causar dano em um alvo Sangrando, pode gastar 1 Ação para impedir o alvo de usar a reação Defesa.", req: "Sentidos 1, Força 1" },
-        hab3: { nome: "Ponto Fechado", desc: "Uma vez por cena, gaste 2 Ações para se costurar e curar totalmente a Caixa de Vida atual. Pode gastar 1 Ação para remover Sangrando.", req: "Sentidos 1" },
-        hab4: { nome: "Segunda Pele", desc: "Você não pode usar Traje, mas seu corpo foi reforçado por costura e enxertos, recebendo naturalmente Reduzir 4." }
+        hab1: { nome: "Segunda Pele", desc: "Você não pode usar Traje, mas seu corpo foi reforçado por costura e enxertos, recebendo naturalmente Reduzir 4." },
+        hab2: { nome: "Costura Armada", desc: "Suas Armas passam a fazer parte do seu corpo. Você não pode sofrer a manobra Desarme.", req: "Sentidos 1" },
+        hab3: { nome: "Estourar Ponto", desc: "Uma vez por rodada, quando causar dano em um alvo Sangrando, pode gastar 1 Ação para impedir o alvo de usar a reação Defesa.", req: "Sentidos 1, Força 1" },
+        hab4: { nome: "Ponto Fechado", desc: "Uma vez por cena, gaste 2 Ações para se costurar e curar totalmente a Caixa de Vida atual. Pode gastar 1 Ação para remover Sangrando.", req: "Sentidos 1" }
     },
     "balci": {
         bonus: "Estudos",
@@ -492,8 +492,8 @@ const dadosGuildas = {
         ],
         riqueza: "3",
         maji: "Maji Base de Fala, Seu Medo, duas Maji de Lua, uma Maji.",
-        hab1: { nome: "Breu de Tsuki", desc: "Durante a noite, um Servo da Lua que esteja ao ar livre não gasta Pontos de Essência para invocar qualquer Maji de Lua." },
-        hab2: { nome: "Cicatriz Sombria", desc: "Sempre que causar Sangrando em um alvo que já esteja com essa condição, cause +1d6 de dano. Seus ataques com arma corpo a corpo possuem Perfurar +2." },
+        hab1: { nome: "Cicatriz Sombria", desc: "Sempre que causar Sangrando em um alvo que já esteja com essa condição, cause +1d6 de dano. Seus ataques com arma corpo a corpo possuem Perfurar +2." },
+        hab2: { nome: "Breu de Tsuki", desc: "Durante a noite, um Servo da Lua que esteja ao ar livre não gasta Pontos de Essência para invocar qualquer Maji de Lua." },
         hab3: { nome: "Medo Completo", desc: "Quando atingir um alvo com um ataque de arma enquanto ele estiver sofrendo a condição Amedrontado²¹, cause +1d6 de dano.", req: "Sentidos 1" },
         hab4: { nome: "Inversão Sombria", desc: "Uma vez por cena, ao realizar a reação Contra Ataque com sucesso, você pode causar a condição Sangrando no alvo.", req: "Agilidade 1" }
     }
