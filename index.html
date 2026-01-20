@@ -40,7 +40,8 @@ Projeto: Ficha de Personagem para MAJI RPG
                 <div style="flex: 1;">
                     <label>Selecione a Guilda:</label>
                     <select id="selectGuilda" onchange="atualizarFicha()">
-                        <option value="">-- Selecione --</option>
+                        <option value="" disabled selected>-- Selecione --</option>
+                        
                         <optgroup label="Guildas Oficiais">
                             <option value="ardor">Guilda Ardor</option>
                             <option value="blugarony">Guilda Blugarony</option>
@@ -52,6 +53,7 @@ Projeto: Ficha de Personagem para MAJI RPG
                             <option value="justica">Guilda Justiça Cinza</option>
                             <option value="nadyat">Guilda Nadyat</option>
                             <option value="oberon">Guilda Oberon</option>
+                            <option value="polares">Guilda Polares</option>
                             <option value="strike">Guilda Strike</option>
                             <option value="tayport">Guilda Tayport</option>
                             <option value="tigre">Guilda Tigre</option>
@@ -61,17 +63,22 @@ Projeto: Ficha de Personagem para MAJI RPG
                         <optgroup label="Guildas Não Oficiais">
                             <option value="blusan">Guilda Blū San</option>
                             <option value="exterminadores">Guilda dos Exterminadores</option>
+                            <option value="fulmen">Guilda Fulmen</option>
+                            <option value="garra_mansa">Guilda Garra Mansa</option>
                             <option value="dancarinas">Guilda Lâminas Dançarinas</option>
                             <option value="prime">Guilda Prime</option>
-                            <option value="varbar">Guilda Varbar</option>
                             <option value="runa">Guilda Runa</option>
+                            <option value="varbar">Guilda Varbar</option>
                         </optgroup>
 
                         <optgroup label="Guildas Exiladas">
                             <option value="ampulheta">Guilda Ampulheta</option>
+                            <option value="ateliere">Guilda Ateliere</option>
+                            <option value="balci">Guilda Balci</option>
                             <option value="nebula">Guilda Nebula</option>
                             <option value="prizark">Guilda Prizark</option>
                             <option value="sacrifice">Guilda Sacrifice</option>
+                            <option value="umbral">Guilda Umbral</option>
                         </optgroup>
                     </select>
                 </div>
