@@ -15,8 +15,7 @@ const bancoItens = {
     },
 
     armas: {
-        // === ESCUDOS (Build 2) ===
-        // Escudos contam como armas para ataque, mas fornecem Redução passiva ou ativa
+        // === ESCUDOS ===
 
         "escudo_peq": {
             nome: "Escudo Pequeno",
@@ -348,7 +347,6 @@ const bancoItens = {
         // "lanca_sarissa": { nome: "Sarissa", dano: "2d6", esp: "arma, duas mãos, alcance 2, perfurar-2, arremesso 2-3, poder", tipo: "pesada", tags: ["arma", "duas maos", "alcance_2", "poder", "lanca", "pesada"] },
 
         // === MACHADOS & MARTELOS ===
-        // === MACHADOS & MARTELOS (Build 2) ===
 
         "maca": {
             nome: "Maça",

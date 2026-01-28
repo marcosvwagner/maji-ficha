@@ -1,7 +1,7 @@
 // ==================================================================================
 // ARQUIVO: script.js
-// VERSÃO: MAJI RPG BUILD 2
-// Atualizado: Atributos Oficiais (Reflexos, Luta, Físico) e Migração de Dados
+// 
+// Descrição: Lógica principal da ficha de Majikai
 // ==================================================================================
 
 const STORAGE_KEY = "maji_ficha_build2";
@@ -377,7 +377,6 @@ function salvarDados() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
 }
 
-// Função Auxiliar para converter saves antigos para Build 2
 function migrarDadosAntigos(dados) {
     // Migração de Atributos
     if (dados.atributos) {
@@ -418,7 +417,7 @@ function carregarDados() {
     if (!json) return;
     
     let dados = JSON.parse(json);
-    dados = migrarDadosAntigos(dados); // Aplica migração se necessário
+    dados = migrarDadosAntigos(dados);
     aplicarDadosNaTela(dados);
 }
 
@@ -431,7 +430,7 @@ function subirFicha(input) {
         try {
             const json = e.target.result;
             let dados = JSON.parse(json);
-            dados = migrarDadosAntigos(dados); // Migra ao subir arquivo antigo
+            dados = migrarDadosAntigos(dados);
             aplicarDadosNaTela(dados);
         } catch (err) {
             alert("Erro ao ler o arquivo JSON.");
@@ -475,13 +474,11 @@ function aplicarDadosNaTela(dados) {
         calcularVida();
     }
 
-    // ... (restante da função igual)
     if (dados.equipamentos) {
         for (const [id, valor] of Object.entries(dados.equipamentos)) {
             const el = document.getElementById(id);
             if (el) {
                 el.value = valor;
-                // Disparar change event ou atualizar manualmente
                  if (typeof bancoItens !== 'undefined') {
                     if (id.includes("arma") || id.includes("outros")) atualizarDetalheDinâmico(el, bancoItens.armas || bancoItens.itens);
                     if (id.includes("traje")) atualizarDetalheDinâmico(el, bancoItens.trajes);
@@ -492,17 +489,14 @@ function aplicarDadosNaTela(dados) {
     }
 }
 
-// Inicialização
 document.addEventListener("DOMContentLoaded", () => {
     carregarDados();
     atualizarVisualProficiencia();
     
-    // Auto-save
     const inputs = document.querySelectorAll("input[type='text'], textarea");
     inputs.forEach(inp => inp.addEventListener("input", salvarDados));
 });
 
-// Funções que faltavam serem copiadas explicitamente para garantir funcionamento:
 function gerarSlotsMaji(guilda) {
     const container = document.getElementById("containerMajis");
     if(!container) return; 
@@ -584,7 +578,7 @@ function baixarFicha() {
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", url);
     const nomePersonagem = dados.nome || "Maji";
-    downloadAnchorNode.setAttribute("download", `Ficha_${nomePersonagem}_Build2.json`);
+    downloadAnchorNode.setAttribute("download", `Ficha_${nomePersonagem}.json`);
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();

@@ -4,11 +4,11 @@
 // ==================================================================================
 
 const bancoMajis = {
-    // --- MAJIS BASE (Pré-requisitos) ---
+    // --- MAJIS BASE ---
     "base": {
-        "godai": { nome: "Godai (Base)", forma: "Fala", tipo: "Tipo", subtipo: "Subtipo", custo: "1 Ação", desc: "Dispara uma bola de essência contra 1-alvo a alcance 0-3 (Esquiva DA 6 ou Defesa), causando 2d6 de dano." },
-        "gidama": { nome: "Gidama (Base)", forma: "Escrita", tipo: "Tipo", subtipo: "Subtipo", custo: "3 ações - 3 ações - Grande", desc: "Cria uma explosão de essência que sai do chão, atingindo todo alvo a alcance 1-2 (Esquiva DA 8 ou Defesa) causando 5d6 de dano." },
-        "godama": { nome: "Godama (Base)", forma: "Sinal", tipo: "Tipo", subtipo: "Subtipo", custo: "2 Ações", desc: "Dispare uma explosão de essência, escolha uma direção e acerte todos a alcance 0-1 (Esquiva DA 8 ou Defesa) causando 3d6 de dano." }
+        "godai": { nome: "Godai (Fala)", forma: "Fala", tipo: "Tipo", subtipo: "Subtipo", custo: "1 Ação", desc: "Dispara uma bola de essência contra 1-alvo a alcance 0-3 (Esquiva DA 6 ou Defesa), causando 2d6 de dano." },
+        "gidama": { nome: "Gidama (Escrita)", forma: "Escrita", tipo: "Tipo", subtipo: "Subtipo", custo: "3 ações - 3 ações - Grande", desc: "Cria uma explosão de essência que sai do chão, atingindo todo alvo a alcance 1-2 (Esquiva DA 8 ou Defesa) causando 5d6 de dano." },
+        "godama": { nome: "Godama (Sinal)", forma: "Sinal", tipo: "Tipo", subtipo: "Subtipo", custo: "2 Ações", desc: "Dispare uma explosão de essência, escolha uma direção e acerte todos a alcance 0-1 (Esquiva DA 8 ou Defesa) causando 3d6 de dano." }
     },
 
     // --- MAJI DE FALA (1 Ação) ---
