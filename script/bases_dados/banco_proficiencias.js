@@ -1,13 +1,13 @@
 const regrasProficiencia = {
-    "Agilidade": {
+    "Reflexos": {
         1: "Ao usar Mover, pode se deslocar +1 alcance.",
-        2: "+1d6 no dano de Equipamentos que usem Agilidade.",
+        2: "+1d6 no dano de Equipamentos que usem Reflexos.",
         3: "Quando falhar em Esquiva, pode gastar 1 Ação para rolar Esquiva novamente.",
         4: "Ao falhar no DA de Esquiva de uma Maji com dano em área que afeta Todo Alvo, recebe metade do dano após reduzir."
     },
-    "Força": {
+    "Luta": {
         1: "Ganha +5 em seus limites de Espaço de carga.",
-        2: "Pode usar Derrubar com 1 Crítico, se usar armas de Força.",
+        2: "Pode usar Derrubar com 1 Crítico, se usar armas de Luta.",
         3: "+1d6 no dano de Equipamentos que usem Força.",
         4: "Se causa 20 ou mais de dano em um ataque, tem perfurar 5."
     },

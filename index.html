@@ -1,9 +1,3 @@
-<!--
-==================================================================================
-Autor: Marcos V. Wagner
-Ano: 2026
-Projeto: Ficha de Personagem para MAJI RPG
-================================================================================== -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -13,15 +7,13 @@ Projeto: Ficha de Personagem para MAJI RPG
     <meta name="author" content="Marcos V. Wagner">
     <link rel="stylesheet" href="style/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="version" content="1.0.0">
-    <meta name="last-modified" content="2026-01-20">
+    <meta name="version" content="2.0.0"> <meta name="last-modified" content="2026-01-28">
     <link rel="icon" type="image/png" href="favicon.png">
-
 </head>
 
 <body>
     <div class="container">
-        <h1>Ficha de Majikai</h1>
+        <h1>Ficha de Majikai (Build 2)</h1>
         <div class="section">
             <h2>1. Identidade</h2>
             <div style="display: flex; gap: 10px;">
@@ -91,60 +83,56 @@ Projeto: Ficha de Personagem para MAJI RPG
 
             <div class="stats-grid">
 
-                <!-- AGILIDADE -->
                 <div class="stat-box">
-                    <label for="valAgilidade">Agilidade</label>
+                    <label for="valReflexos">Reflexos</label>
                     <div class="stat-val">
-                        <button class="btn-attr" onclick="alterarAtributo('Agilidade', -1)">−</button>
-                        <span id="valAgilidade" class="attr-num">1</span>
-                        <button class="btn-attr" onclick="alterarAtributo('Agilidade', 1)">+</button>
+                        <button class="btn-attr" onclick="alterarAtributo('Reflexos', -1)">−</button>
+                        <span id="valReflexos" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Reflexos', 1)">+</button>
                     </div>
                     <div class="prof-track">
-                        <div class="pip" onclick="setProficiencia('Agilidade', 1)" id="pip_Agilidade_1"></div>
-                        <div class="pip" onclick="setProficiencia('Agilidade', 2)" id="pip_Agilidade_2"></div>
-                        <div class="pip" onclick="setProficiencia('Agilidade', 3)" id="pip_Agilidade_3"></div>
-                        <div class="pip" onclick="setProficiencia('Agilidade', 4)" id="pip_Agilidade_4"></div>
+                        <div class="pip" onclick="setProficiencia('Reflexos', 1)" id="pip_Reflexos_1"></div>
+                        <div class="pip" onclick="setProficiencia('Reflexos', 2)" id="pip_Reflexos_2"></div>
+                        <div class="pip" onclick="setProficiencia('Reflexos', 3)" id="pip_Reflexos_3"></div>
+                        <div class="pip" onclick="setProficiencia('Reflexos', 4)" id="pip_Reflexos_4"></div>
                     </div>
                 </div>
 
-                <!-- FORÇA -->
                 <div class="stat-box">
-                    <label for="valForca">Força</label>
+                    <label for="valLuta">Luta</label>
                     <div class="stat-val">
-                        <button class="btn-attr" onclick="alterarAtributo('Força', -1)">−</button>
-                        <span id="valForca" class="attr-num">1</span>
-                        <button class="btn-attr" onclick="alterarAtributo('Força', 1)">+</button>
+                        <button class="btn-attr" onclick="alterarAtributo('Luta', -1)">−</button>
+                        <span id="valLuta" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Luta', 1)">+</button>
                     </div>
                     <div class="prof-track">
-                        <div class="pip" onclick="setProficiencia('Força', 1)" id="pip_Força_1"></div>
-                        <div class="pip" onclick="setProficiencia('Força', 2)" id="pip_Força_2"></div>
-                        <div class="pip" onclick="setProficiencia('Força', 3)" id="pip_Força_3"></div>
-                        <div class="pip" onclick="setProficiencia('Força', 4)" id="pip_Força_4"></div>
+                        <div class="pip" onclick="setProficiencia('Luta', 1)" id="pip_Luta_1"></div>
+                        <div class="pip" onclick="setProficiencia('Luta', 2)" id="pip_Luta_2"></div>
+                        <div class="pip" onclick="setProficiencia('Luta', 3)" id="pip_Luta_3"></div>
+                        <div class="pip" onclick="setProficiencia('Luta', 4)" id="pip_Luta_4"></div>
                     </div>
                 </div>
 
-                <!-- VIGOR -->
                 <div class="stat-box">
-                    <label for="valVigor">Vigor</label>
+                    <label for="valFisico">Físico</label>
                     <div class="stat-val">
-                        <button class="btn-attr" onclick="alterarAtributo('Vigor', -1)">−</button>
-                        <span id="valVigor" class="attr-num">1</span>
-                        <button class="btn-attr" onclick="alterarAtributo('Vigor', 1)">+</button>
+                        <button class="btn-attr" onclick="alterarAtributo('Físico', -1)">−</button>
+                        <span id="valFisico" class="attr-num">1</span>
+                        <button class="btn-attr" onclick="alterarAtributo('Físico', 1)">+</button>
                     </div>
                     <div class="prof-track">
-                        <div class="pip" onclick="setProficiencia('Vigor', 1)" id="pip_Vigor_1"></div>
-                        <div class="pip" onclick="setProficiencia('Vigor', 2)" id="pip_Vigor_2"></div>
-                        <div class="pip" onclick="setProficiencia('Vigor', 3)" id="pip_Vigor_3"></div>
-                        <div class="pip" onclick="setProficiencia('Vigor', 4)" id="pip_Vigor_4"></div>
+                        <div class="pip" onclick="setProficiencia('Físico', 1)" id="pip_Físico_1"></div>
+                        <div class="pip" onclick="setProficiencia('Físico', 2)" id="pip_Físico_2"></div>
+                        <div class="pip" onclick="setProficiencia('Físico', 3)" id="pip_Físico_3"></div>
+                        <div class="pip" onclick="setProficiencia('Físico', 4)" id="pip_Físico_4"></div>
                     </div>
                 </div>
 
-                <!-- Sentidos -->
                 <div class="stat-box">
-                    <label for="valsentidos">Sentidos</label>
+                    <label for="valSentidos">Sentidos</label>
                     <div class="stat-val">
                         <button class="btn-attr" onclick="alterarAtributo('Sentidos', -1)">−</button>
-                        <span id="valsentidos" class="attr-num">1</span>
+                        <span id="valSentidos" class="attr-num">1</span>
                         <button class="btn-attr" onclick="alterarAtributo('Sentidos', 1)">+</button>
                     </div>
                     <div class="prof-track">
@@ -155,7 +143,6 @@ Projeto: Ficha de Personagem para MAJI RPG
                     </div>
                 </div>
 
-                <!-- CARISMA -->
                 <div class="stat-box">
                     <label for="valCarisma">Carisma</label>
                     <div class="stat-val">
@@ -171,12 +158,11 @@ Projeto: Ficha de Personagem para MAJI RPG
                     </div>
                 </div>
 
-                <!-- ESTUDOS -->
                 <div class="stat-box">
-                    <label for="valestudos">Estudos</label>
+                    <label for="valEstudos">Estudos</label>
                     <div class="stat-val">
                         <button class="btn-attr" onclick="alterarAtributo('Estudos', -1)">−</button>
-                        <span id="valestudos" class="attr-num">1</span>
+                        <span id="valEstudos" class="attr-num">1</span>
                         <button class="btn-attr" onclick="alterarAtributo('Estudos', 1)">+</button>
                     </div>
                     <div class="prof-track">
@@ -290,14 +276,11 @@ Projeto: Ficha de Personagem para MAJI RPG
     </div>
 
 
-    <!-- <script src="dados.js"></script> -->
     <script src="script/bases_dados/banco_maji.js"></script>
     <script src="script/bases_dados/banco_guildas.js"></script>
     <script src="script/bases_dados/banco_itens.js"></script>
     <script src="script/bases_dados/banco_proficiencias.js"></script>
     <script src="script/script.js"></script>
-
-
 
 </body>
 

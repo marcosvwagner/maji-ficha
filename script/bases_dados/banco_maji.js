@@ -1,6 +1,6 @@
 // ==================================================================================
 // ARQUIVO: dados_maji.js
-// Banco de dados COMPLETO das Magias (Maji) - Baseado na Build 2
+// Banco de dados COMPLETO das Magias (Maji)
 // ==================================================================================
 
 const bancoMajis = {
