@@ -10,21 +10,21 @@ const STORAGE_KEY = "maji_ficha_build2";
 let atributoBonusGuilda = []; 
 
 let proficiencias = {
-    "Reflexos": 0, // Antiga Agilidade
-    "Luta": 0,     // Antiga Força
-    "Físico": 0,   // Antigo Vigor
+    "Reflexos": 0, 
+    "Luta": 0,     
+    "Físico": 0,   
     "Sentidos": 0,
     "Carisma": 0,
     "Estudos": 0
 };
 
 let atributos = {
-    "Reflexos": 1,
-    "Luta": 1,
-    "Físico": 1,
-    "Sentidos": 1,
-    "Carisma": 1,
-    "Estudos": 1
+    "Reflexos": 0,
+    "Luta": 0,
+    "Físico": 0,
+    "Sentidos": 0,
+    "Carisma": 0,
+    "Estudos": 0
 };
 
 const idMap = {
@@ -36,7 +36,7 @@ const idMap = {
     "Estudos": "valEstudos"
 };
 
-const MIN_ATRIBUTO = 1;
+const MIN_ATRIBUTO = 0;
 const MAX_ATRIBUTO = 5;
 
 function setProficiencia(atributo, nivel) {
@@ -229,7 +229,7 @@ function atualizarFicha(isLoading = false) {
     const guildaSelecionada = guildaSelect.value;
     const textoBonus = document.getElementById("textoBonusAtributo");
 
-    atributos = { "Reflexos": 1, "Luta": 1, "Físico": 1, "Sentidos": 1, "Carisma": 1, "Estudos": 1 };
+    atributos = { "Reflexos": 0, "Luta": 0, "Físico": 0, "Sentidos": 0, "Carisma": 0, "Estudos": 0 };
 
     if (dadosGuildas[guildaSelecionada]) {
         const g = dadosGuildas[guildaSelecionada];
@@ -327,7 +327,7 @@ function alterarAtributo(nome, delta) {
 
     // REGRAS DE LIMITE:
     // 1. O valor base nunca pode ser menor que 1
-    if (novoValorBase < 1) return;
+    if (novoValorBase < 0) return;
 
     // 2. O valor FINAL (somado ao bônus) não pode passar de 5
     if (valorFinalPotencial > 5) return;
