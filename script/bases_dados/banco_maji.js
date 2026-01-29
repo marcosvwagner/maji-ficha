@@ -39,7 +39,7 @@ const bancoMajis = {
         // Celeste: Estrelas
         "aquila": { nome: "Aquila", forma: "Fala", tipo: "Celeste", subtipo: "Estrelas", custo: "1 Ação", desc: "Raios em 1-alvo a alcance 0-2 (Esquiva DA 12). Causa Desorientado." },
         "canis_minor": { nome: "Canis Minor", forma: "Fala", tipo: "Celeste", subtipo: "Estrelas", custo: "1 Ação", desc: "Invoque o Cão Menor (Vida 10, Esquiva 12). Ele tem 3 Ações. Ataque: 2d6 dano." },
-        "dorado": { nome: "Dorado", forma: "Fala", tipo: "Celeste", subtipo: "Estrelas", custo: "1 Ação", desc: "1-equipamento a alcance 0 brilha. 3-usos: ao acertar ataque, causa +1d6 dano." },
+        // "dorado": { nome: "Dorado", forma: "Fala", tipo: "Celeste", subtipo: "Estrelas", custo: "1 Ação", desc: "1-equipamento a alcance 0 brilha. 3-usos: ao acertar ataque, causa +1d6 dano." },
         "gemini": { nome: "Gemini", forma: "Fala", tipo: "Celeste", subtipo: "Estrelas", custo: "1 Ação", desc: "Copie uma Maji de Fala/Sinal usada na rodada atual ou anterior. Ganhe 1 uso dela." },
         "lyra": { nome: "Lyra", forma: "Fala", tipo: "Celeste", subtipo: "Estrelas", custo: "1 Ação", desc: "1-alvo a alcance 0-2 remove uma condição: Desorientado, Amedrontado, Atordoado ou Adormecido." },
         "phoenix": { nome: "Phoenix", forma: "Fala", tipo: "Celeste", subtipo: "Estrelas", custo: "1 Ação", desc: "Recebe 1-uso. Se morrer, gasta para reviver com 10 PV (mesmo com corpo destruído)." },

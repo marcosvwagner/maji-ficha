@@ -60,7 +60,7 @@ const bancoItens = {
             nome: "Arco Composto",
             dano: "Munição",
             acoes: 2,
-            alcance: "1-5", 
+            alcance: "1-5",
             riqueza: 4,
             esp: "duas mãos, recarga 1, manuseio +1",
             tags: ["arma", "arco", "distancia", "duas_maos"]
@@ -70,7 +70,7 @@ const bancoItens = {
             nome: "Arco Recurvo",
             dano: "Munição",
             acoes: 2,
-            alcance: "1-5", 
+            alcance: "1-5",
             riqueza: 2,
             esp: "duas mãos, recarga 1",
             tags: ["arma", "arco", "distancia", "duas_maos"]
@@ -80,7 +80,7 @@ const bancoItens = {
             nome: "Arco Longo",
             dano: "Munição",
             acoes: 2,
-            alcance: "1-7", 
+            alcance: "1-7",
             riqueza: 2,
             esp: "duas mãos, recarga 0, manuseio -1, pesado 2",
             tags: ["arma", "arco", "distancia", "duas_maos"]
@@ -99,7 +99,7 @@ const bancoItens = {
         "mini_balestra": {
             nome: "Mini Balestra",
             dano: "1d6",
-            acoes: 1, 
+            acoes: 1,
             alcance: "0-2",
             riqueza: 2,
             esp: "uma mão, recarga 1, perfurar 2",
@@ -135,7 +135,7 @@ const bancoItens = {
         "katar": {
             nome: "Katar",
             dano: "2d6",
-            acoes: 1, 
+            acoes: 1,
             alcance: "0",
             riqueza: 3,
             esp: "uma mão, perfurar 2, crítico finta",
@@ -145,7 +145,7 @@ const bancoItens = {
         "garras": {
             nome: "Garras",
             dano: "2d6",
-            acoes: 1, 
+            acoes: 1,
             alcance: "0",
             riqueza: 2,
             esp: "uma mão, cortante",
@@ -172,7 +172,7 @@ const bancoItens = {
             nome: "Chicote",
             dano: "2d6",
             acoes: 1,
-            alcance: "0-1", 
+            alcance: "0-1",
             riqueza: 1,
             esp: "uma mão",
             tags: ["arma", "corrente", "uma_mao", "leve"]
@@ -258,7 +258,7 @@ const bancoItens = {
         "adaga": {
             nome: "Adaga",
             dano: "2d6",
-            acoes: 1,  
+            acoes: 1,
             alcance: "0",
             riqueza: 0,
             esp: "uma mão, perfurar: 4",
@@ -299,13 +299,13 @@ const bancoItens = {
         "berdiche": { nome: "Berdiche", dano: "3d6", alcance: "0-1", esp: "duas mãos, perfurar-3", tipo: "pesada", tags: ["arma", "duas maos", "alcance", "perfurar", "haste", "pesada"] },
         // "bisento": { nome: "Bisento", dano: "3d6", esp: "arma, duas mãos, alcance 0-1, cortante", tipo: "leve", tags: ["arma", "duas maos", "alcance", "cortante", "haste", "leve"] },
         "foice": { nome: "Foice", dano: "2d6", alcance: "0-1", esp: "duas mãos, perfurar-2, ágil", tipo: "leve", tags: ["arma", "duas maos", "alcance", "agil", "haste", "leve"] },
-        
+
         // === LANÇAS ===
 
         "dardo": {
             nome: "Dardo",
             dano: "2d6",
-            acoes: 2, 
+            acoes: 2,
             alcance: "0-1",
             riqueza: 1,
             esp: "uma mão, perfurar 5, arremesso 4",
@@ -326,7 +326,7 @@ const bancoItens = {
             nome: "Justa",
             dano: "4d6",
             acoes: 2, // Arma pesada
-            alcance: "0", 
+            alcance: "0",
             riqueza: 3,
             esp: "uma mão, pesada 3, perfurar 3, manuseio -2",
             tags: ["arma", "lanca", "pesada", "montaria"]
@@ -361,7 +361,7 @@ const bancoItens = {
         "machadinha": {
             nome: "Machadinha",
             dano: "2d6",
-            acoes: 1, 
+            acoes: 1,
             alcance: "0",
             riqueza: 1,
             esp: "uma mão, arremesso:  0-1",
@@ -394,5 +394,13 @@ const bancoItens = {
         // "marreta_guerra": { nome: "Marreta de Guerra", dano: "5d6", esp: "arma, duas mãos, poder, pesada 3, manuseio -2", tipo: "pesada", tags: ["arma", "duas maos", "poder", "martelo", "pesada"] },
         // O antigo "Martelo" de uma mão foi substituído pela Maça ou não existe mais nessa versão
         // "martelo_antigo": { nome: "Martelo", dano: "3d6", esp: "arma, uma mão, manuseio -2, pesada 3, poder", tipo: "pesada", tags: ["arma", "uma mao", "pesada", "poder", "martelo"] },
+    },
+
+    itens: {
+        "pergaminho_pequeno": { nome: "Pergaminho Pequeno", tags: ["item", "escrita"], especial: "Armazena 1 Maji Pequena" },
+        "pergaminho_grande": { nome: "Pergaminho Grande", tags: ["item", "escrita"], especial: "Armazena 1 Maji Grande" },
+        "virote": { nome: "Kit de Virotes", tags: ["item", "municao"], especial: "Munição para Balestra" },
+        "eter": { nome: "Frasco de Éter", tags: ["item", "alquimia"], especial: "Recupera Essência ou Potencializa Maji" },
+        "tinta": { nome: "Pote de Tinta", tags: ["item", "escrita"], especial: "Necessário para Runa e Escrita" }
     }
 };
